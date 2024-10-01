@@ -26,7 +26,6 @@ public class SignupActivity extends AppCompatActivity {
         id=findViewById(R.id.signID);
         pw=findViewById(R.id.signPW);
         pw2=findViewById(R.id.signPW2);
-        email=findViewById(R.id.signmail);
         birthyear=findViewById(R.id.signBirth);
         birthdate=findViewById(R.id.signBirth2);
         birthday=findViewById(R.id.signBirth3);
