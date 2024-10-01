@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <!-- 스톱워치 시간이 표시될 텍스트뷰 -->
+    <TextView
+        android:id="@+id/stopwatch_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- 일시정지/운동재개 버튼 -->
+    <Button
+        android:id="@+id/pause_resume_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="일시정지" />
+
+    <!-- 운동 끝 버튼 -->
+    <Button
+        android:id="@+id/end_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="운동 끝"
+        android:layout_marginTop="10dp" />
+</LinearLayout>
