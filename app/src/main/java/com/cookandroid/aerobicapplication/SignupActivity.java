@@ -39,6 +39,8 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
+
+
         submit = findViewById(R.id.signupbutton);
         submit.setOnClickListener(v -> {
             Intent intent = new Intent(this, LoginActivity.class);

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "12952162993",
+    "project_id": "capstone-ver1",
+    "storage_bucket": "capstone-ver1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12952162993:android:cd862e9c6e295d646f8890",
+        "android_client_info": {
+          "package_name": "com.cookandroid.aerobicapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzbkhWOysAgldxC27rgQNah60DJuEH5HU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12952162993:android:8bf6581d1d2d69c36f8890",
+        "android_client_info": {
+          "package_name": "com.example.background"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzbkhWOysAgldxC27rgQNah60DJuEH5HU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
