@@ -25,7 +25,6 @@ import com.cookandroid.aerobicapplication.userdata.LoginWithData;
 
 public class LoginActivity extends AppCompatActivity {
     EditText id,pw;
-    public static boolean signCheck = false;
     private LoginWithData loginWithData;
 
     @Override
