@@ -63,6 +63,11 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                     }
                 });
+                /*
+                로그인 없이 실험 할때
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                 */
             }
         });
     }
