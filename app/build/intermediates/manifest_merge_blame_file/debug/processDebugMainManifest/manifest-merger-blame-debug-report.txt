@@ -1,0 +1,194 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.pacemaker"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+12-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:5:5-79
+12-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:5:22-76
+13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+13-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:6:5-81
+13-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:6:22-78
+14
+15    <permission
+15-->[androidx.core:core:1.13.0] C:\Users\SURIM\.gradle\caches\transforms-4\42dfdf811721b94244c28f65a2afec29\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
+16        android:name="com.example.pacemaker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+16-->[androidx.core:core:1.13.0] C:\Users\SURIM\.gradle\caches\transforms-4\42dfdf811721b94244c28f65a2afec29\transformed\core-1.13.0\AndroidManifest.xml:23:9-81
+17        android:protectionLevel="signature" />
+17-->[androidx.core:core:1.13.0] C:\Users\SURIM\.gradle\caches\transforms-4\42dfdf811721b94244c28f65a2afec29\transformed\core-1.13.0\AndroidManifest.xml:24:9-44
+18
+19    <uses-permission android:name="com.example.pacemaker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+19-->[androidx.core:core:1.13.0] C:\Users\SURIM\.gradle\caches\transforms-4\42dfdf811721b94244c28f65a2afec29\transformed\core-1.13.0\AndroidManifest.xml:26:5-97
+19-->[androidx.core:core:1.13.0] C:\Users\SURIM\.gradle\caches\transforms-4\42dfdf811721b94244c28f65a2afec29\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
+20
+21    <application
+21-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:7:5-47:19
+22        android:allowBackup="true"
+22-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:8:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.13.0] C:\Users\SURIM\.gradle\caches\transforms-4\42dfdf811721b94244c28f65a2afec29\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
+24        android:dataExtractionRules="@xml/data_extraction_rules"
+24-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:9:9-65
+25        android:debuggable="true"
+26        android:extractNativeLibs="false"
+27        android:fullBackupContent="@xml/backup_rules"
+27-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:10:9-54
+28        android:icon="@mipmap/ic_launcher"
+28-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:11:9-43
+29        android:label="@string/app_name"
+29-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:12:9-41
+30        android:roundIcon="@mipmap/ic_launcher_round"
+30-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:13:9-54
+31        android:supportsRtl="true"
+31-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:14:9-35
+32        android:testOnly="true"
+33        android:theme="@style/Theme.PaceMaker" >
+33-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:15:9-47
+34        <activity
+34-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:17:9-19:40
+35            android:name="com.example.pacemaker.route.WorkoutResultActivity"
+35-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:18:13-77
+36            android:exported="false" />
+36-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:19:13-37
+37        <activity
+37-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:20:9-22:40
+38            android:name="com.example.pacemaker.CreatePathActivity"
+38-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:21:13-68
+39            android:exported="false" />
+39-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:22:13-37
+40        <activity
+40-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:23:9-25:40
+41            android:name="com.example.pacemaker.route.RouteMain"
+41-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:24:13-65
+42            android:exported="false" />
+42-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:25:13-37
+43        <activity
+43-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:26:9-30:58
+44            android:name="com.example.pacemaker.MainActivity"
+44-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:27:13-41
+45            android:configChanges="orientation|keyboardHidden|screenSize"
+45-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:28:13-74
+46            android:exported="false"
+46-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:29:13-37
+47            android:label="@string/title_activity_main" />
+47-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:30:13-56
+48        <activity
+48-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:31:9-35:59
+49            android:name="com.example.pacemaker.LoginActivity"
+49-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:32:13-63
+50            android:configChanges="orientation|keyboardHidden|screenSize"
+50-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:33:13-74
+51            android:exported="false"
+51-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:34:13-37
+52            android:label="@string/title_activity_login" />
+52-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:35:13-57
+53        <activity
+53-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:36:9-44:20
+54            android:name="com.example.pacemaker.TitleActivity"
+54-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:37:13-63
+55            android:exported="true" >
+55-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:38:13-36
+56            <intent-filter>
+56-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:39:13-43:29
+57                <action android:name="android.intent.action.MAIN" />
+57-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:40:17-69
+57-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:40:25-66
+58
+59                <category android:name="android.intent.category.LAUNCHER" />
+59-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:42:17-77
+59-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:42:27-74
+60            </intent-filter>
+61        </activity>
+62        <activity android:name="com.example.pacemaker.SignupActivity" />
+62-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:45:9-73
+62-->C:\Users\SURIM\AndroidStudioProjects\paceMaker\app\src\main\AndroidManifest.xml:45:19-70
+63
+64        <provider
+64-->[androidx.emoji2:emoji2:1.3.0] C:\Users\SURIM\.gradle\caches\transforms-4\51f1927f6706bb4e824223b170abb02f\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+65            android:name="androidx.startup.InitializationProvider"
+65-->[androidx.emoji2:emoji2:1.3.0] C:\Users\SURIM\.gradle\caches\transforms-4\51f1927f6706bb4e824223b170abb02f\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+66            android:authorities="com.example.pacemaker.androidx-startup"
+66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\SURIM\.gradle\caches\transforms-4\51f1927f6706bb4e824223b170abb02f\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+67            android:exported="false" >
+67-->[androidx.emoji2:emoji2:1.3.0] C:\Users\SURIM\.gradle\caches\transforms-4\51f1927f6706bb4e824223b170abb02f\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+68            <meta-data
+68-->[androidx.emoji2:emoji2:1.3.0] C:\Users\SURIM\.gradle\caches\transforms-4\51f1927f6706bb4e824223b170abb02f\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+69                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+69-->[androidx.emoji2:emoji2:1.3.0] C:\Users\SURIM\.gradle\caches\transforms-4\51f1927f6706bb4e824223b170abb02f\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+70                android:value="androidx.startup" />
+70-->[androidx.emoji2:emoji2:1.3.0] C:\Users\SURIM\.gradle\caches\transforms-4\51f1927f6706bb4e824223b170abb02f\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+71            <meta-data
+71-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\SURIM\.gradle\caches\transforms-4\fab565b32d1caf7d32cc0e9c5a768a04\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+72                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+72-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\SURIM\.gradle\caches\transforms-4\fab565b32d1caf7d32cc0e9c5a768a04\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+73                android:value="androidx.startup" />
+73-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\SURIM\.gradle\caches\transforms-4\fab565b32d1caf7d32cc0e9c5a768a04\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+74            <meta-data
+74-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+75                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+76                android:value="androidx.startup" />
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+77        </provider>
+78
+79        <uses-library
+79-->[androidx.window:window:1.0.0] C:\Users\SURIM\.gradle\caches\transforms-4\3edbea66e057b11ca2d905404fed71bf\transformed\window-1.0.0\AndroidManifest.xml:25:9-27:40
+80            android:name="androidx.window.extensions"
+80-->[androidx.window:window:1.0.0] C:\Users\SURIM\.gradle\caches\transforms-4\3edbea66e057b11ca2d905404fed71bf\transformed\window-1.0.0\AndroidManifest.xml:26:13-54
+81            android:required="false" />
+81-->[androidx.window:window:1.0.0] C:\Users\SURIM\.gradle\caches\transforms-4\3edbea66e057b11ca2d905404fed71bf\transformed\window-1.0.0\AndroidManifest.xml:27:13-37
+82        <uses-library
+82-->[androidx.window:window:1.0.0] C:\Users\SURIM\.gradle\caches\transforms-4\3edbea66e057b11ca2d905404fed71bf\transformed\window-1.0.0\AndroidManifest.xml:28:9-30:40
+83            android:name="androidx.window.sidecar"
+83-->[androidx.window:window:1.0.0] C:\Users\SURIM\.gradle\caches\transforms-4\3edbea66e057b11ca2d905404fed71bf\transformed\window-1.0.0\AndroidManifest.xml:29:13-51
+84            android:required="false" />
+84-->[androidx.window:window:1.0.0] C:\Users\SURIM\.gradle\caches\transforms-4\3edbea66e057b11ca2d905404fed71bf\transformed\window-1.0.0\AndroidManifest.xml:30:13-37
+85
+86        <receiver
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+87            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+88            android:directBootAware="false"
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+89            android:enabled="true"
+89-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+90            android:exported="true"
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+91            android:permission="android.permission.DUMP" >
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+92            <intent-filter>
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+93                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+94            </intent-filter>
+95            <intent-filter>
+95-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+96                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+97            </intent-filter>
+98            <intent-filter>
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+99                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+99-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+100            </intent-filter>
+101            <intent-filter>
+101-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+102                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+102-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\SURIM\.gradle\caches\transforms-4\7c6c24dcca5059c7b3ce34791d5d98cd\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+103            </intent-filter>
+104        </receiver>
+105    </application>
+106
+107</manifest>

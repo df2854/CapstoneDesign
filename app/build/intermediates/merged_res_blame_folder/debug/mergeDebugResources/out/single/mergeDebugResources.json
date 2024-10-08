@@ -1,0 +1,162 @@
+[
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\menu_menu_bottom_nav.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\menu\\menu_bottom_nav.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_ic_setting.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\ic_setting.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_marker.png.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\marker.png"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_plus.png.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\plus.png"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_activity_start_workout.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\activity_start_workout.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_gps.png.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\gps.png"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\xml_preferences.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\xml\\preferences.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_rounded_corners_background.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\rounded_corners_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_fragment_main_menu_home.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\fragment_main_menu_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\ic_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_pl.png.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\pl.png"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_fragment_main_menu_setting.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\fragment_main_menu_setting.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_title_screen.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\title_screen.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_activity_create_path.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\activity_create_path.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_circle.jpg.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\circle.jpg"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_minus.png.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\minus.png"
+    },
+    {
+        "merged": "com.example.pacemaker.app-debug-40:/layout_activity_start_workout.xml.flat",
+        "source": "com.example.pacemaker.app-main-42:/layout/activity_start_workout.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_ic_account.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\ic_account.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_activity_signup.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\activity_signup.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_activity_workout_result.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\activity_workout_result.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\drawable_mi.png.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\drawable\\mi.png"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\layout_fragment_main_menu_account.xml.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\layout\\fragment_main_menu_account.xml"
+    },
+    {
+        "merged": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-debug-40:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\SURIM\\.gradle\\daemon\\8.7\\com.example.pacemaker.app-main-42:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    }
+]
