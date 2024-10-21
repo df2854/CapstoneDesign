@@ -12,7 +12,7 @@ public class UserdataManager {
     private String userDisease;
     private String userExperience;
 
-    private Double userBMI;
+    private double userBMI;
     private int userAge;
     private int userScore = 100;
 
