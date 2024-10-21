@@ -1,25 +1,17 @@
 package com.cookandroid.aerobicapplication;
 
-import android.annotation.SuppressLint;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.view.MotionEvent;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cookandroid.aerobicapplication.databinding.ActivityLoginBinding;
 import com.cookandroid.aerobicapplication.userdata.CompleteListener;
 import com.cookandroid.aerobicapplication.userdata.LoginWithData;
 
@@ -50,6 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (TextUtils.isEmpty(id.getText().toString())) {
+                    Toast.makeText(LoginActivity.this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(pw.getText().toString())) {
+                    Toast.makeText(LoginActivity.this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 loginWithData.LogintoFirebase(id, pw, new CompleteListener() {
                     @Override
                     public void onSuccess() {

@@ -6,10 +6,17 @@ public class FirebaseData {
 
     public static String user = "user";
 
-    public static String documentId = "documentId";
     public static String birthday = "birthday";
 
+
     public static String name = "name";
-    //public static String age = "age";
-    //public static String height = "height";
+
+    public static String height = "height";
+
+    public static String weight = "weight";
+
+    public static String disease = "disease";
+
+    public static String experience = "experience";
+
 }
