@@ -12,7 +12,7 @@ public class UserdataManager {
     private String userDisease;
     private String userExperience;
 
-    private double userBMI;
+    private double userBmi;
     private int userAge;
     private int userScore = 100;
 
@@ -70,7 +70,7 @@ public class UserdataManager {
         return userExperience;
     }
     public Double getUserBmi() {
-        return userBMI;
+        return userBmi;
     }
     public int getUserAge(){
         return userAge;
@@ -96,7 +96,7 @@ public class UserdataManager {
         if(userAge >= 65)
             userScore -= 10;
 
-        if(userBMI >= 30)
+        if(userBmi >= 30)
             userScore -= 10;
 
         if(userDisease.equals("O"))
@@ -133,6 +133,6 @@ public class UserdataManager {
         double weight = Double.parseDouble(userWeight);
         double height = Double.parseDouble(userHeight)/100;
 
-        userBMI = weight / (height * height);
+        userBmi = weight / (height * height);
     }
 }
