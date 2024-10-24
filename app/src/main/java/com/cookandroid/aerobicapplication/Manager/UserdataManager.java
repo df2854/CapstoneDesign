@@ -86,6 +86,13 @@ public class UserdataManager {
         userId = null;
         userName = null;
         userBirthday = null;
+        userHeight = null;
+        userWeight = null;
+        userDisease = null;
+        userExperience = null;
+        userBmi = 0;
+        userAge = 0;
+        userScore = 0;
     }
 
     // 유저 점수 계산
