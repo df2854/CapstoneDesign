@@ -9,8 +9,8 @@ public class UserdataManager {
     private String userBirthday;
     private String userHeight;
     private String userWeight;
-    private String userDisease;
-    private String userExperience;
+    private String userDisease;             // 0 or 1
+    private String userExperience;          // High or Normal or Low
 
     private double userBmi;
     private int userAge;
