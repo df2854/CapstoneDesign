@@ -81,7 +81,6 @@ public class UserdataManager {
     }
 
 
-
     // 로그아웃 시 데이터 초기화
     public void clearData() {
         userId = null;

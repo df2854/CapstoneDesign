@@ -2,8 +2,11 @@ package com.cookandroid.aerobicapplication.Manager;
 
 public class ExercisedataManager {
 
-    // 운동 데이터를 저장하는 변수
+    // 진행 중인 운동 데이터를 저장하는 변수
     private String userId;
+
+    // 완료한 운동 데이터를 저장하는 컨테이너
+
 
     // 싱글턴 인스턴스
     private static ExercisedataManager instance;
@@ -26,11 +29,10 @@ public class ExercisedataManager {
     }
 
     // 바깥에서 유저 데이터 가져오는 메서드
-    // 사용할때는 UserdataManager.getInstance().getUser------()
+    // 사용할때는 ExercisedataManager.getInstance().getUser------()
     public String getUserId() {
         return userId;
     }
-
 
     // 데이터 초기화
     public void clearData() {
