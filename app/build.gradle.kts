@@ -50,4 +50,9 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
+
+    // tmap
+    implementation(files("libs\\com.skt.Tmap_1.76.jar"))
+    implementation("androidx.preference:preference-ktx:1.2.0")
+
 }

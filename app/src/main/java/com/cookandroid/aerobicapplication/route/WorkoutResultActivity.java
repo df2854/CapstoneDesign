@@ -1,4 +1,4 @@
-package com.cookandroid.aerobicapplication;
+package com.cookandroid.aerobicapplication.route;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.cookandroid.aerobicapplication.MainActivity;
+import com.cookandroid.aerobicapplication.R;
+
 
 public class WorkoutResultActivity extends AppCompatActivity {
 
@@ -15,7 +19,7 @@ public class WorkoutResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_result);
+        setContentView(com.cookandroid.aerobicapplication.R.layout.activity_workout_result);
 
         resultText = findViewById(R.id.result_text);
         workoutTimeText = findViewById(R.id.workout_time_text);

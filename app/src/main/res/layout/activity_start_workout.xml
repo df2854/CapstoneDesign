@@ -1,33 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    tools:context=".route.RouteMain">
 
-    <!-- 스톱워치 시간이 표시될 텍스트뷰 -->
+    <!-- TMapView를 담을 레이아웃 -->
+    <LinearLayout
+        android:id="@+id/linearLayoutTmap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </LinearLayout>
+
+    <!-- 확대 및 축소 버튼을 지도 위에 고정 배치 -->
+    <LinearLayout
+        android:id="@+id/zoomControls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/btnZoomIn"
+            android:src="@drawable/pl"
+            android:scaleType="centerCrop"/>
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/btnZoomOut"
+            android:src="@drawable/mi"
+            android:scaleType="centerCrop"/>
+
+        <ImageButton
+            android:id="@+id/btnCurrentLocation"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/gps"
+            android:scaleType="centerCrop"
+            android:contentDescription="현재 위치 버튼" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/currentLocationImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+        android:src="@drawable/circle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- 예상 소요 시간을 보여주는 TextView -->
     <TextView
-        android:id="@+id/stopwatch_display"
+        android:id="@+id/estimatedTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00:00"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
+        android:background="@drawable/rounded_corners_background"
+        android:padding="16dp"
+        android:text="예상 소요 시간: 계산 중..."
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-    <!-- 일시정지/운동재개 버튼 -->
-    <Button
-        android:id="@+id/pause_resume_button"
-        android:layout_width="wrap_content"
+    <!-- 버튼 배치 레이아웃 -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="일시정지" />
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <!-- 운동 끝 버튼 -->
-    <Button
-        android:id="@+id/end_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="운동 끝"
-        android:layout_marginTop="10dp" />
-</LinearLayout>
+        <Button
+            android:id="@+id/btnSetStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="출발지 설정"
+            android:background="@color/design_default_color_primary"
+            android:textColor="@android:color/white"/>
+        <Button
+            android:id="@+id/btnEndSet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="지정 완료"
+            android:background="@color/design_default_color_primary"
+            android:textColor="@android:color/white"/>
+        <!-- 추가 버튼을 여기에 추가할 수 있습니다 -->
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
