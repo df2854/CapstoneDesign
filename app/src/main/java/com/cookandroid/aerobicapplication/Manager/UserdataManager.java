@@ -48,6 +48,7 @@ public class UserdataManager {
     }
 
     // 바깥에서 유저 데이터 가져오는 메서드
+    // 사용할때는 UserdataManager.getInstance().getUser------()
     public String getUserId() {
         return userId;
     }
