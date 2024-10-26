@@ -9,7 +9,7 @@ public class UserdataManager {
     private String userBirthday;
     private String userHeight;
     private String userWeight;
-    private String userDisease;             // 0 or 1
+    private String userDisease;             // Yes or No
     private String userExperience;          // High or Normal or Low
 
     private double userBmi;
@@ -106,7 +106,7 @@ public class UserdataManager {
         if(userBmi >= 30)
             userScore -= 10;
 
-        if(userDisease.equals("O"))
+        if(userDisease.equals("Yes"))
             userScore -= 10;
 
         if(userExperience.equals("High"))
