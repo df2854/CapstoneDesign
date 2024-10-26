@@ -3,12 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainMenuAccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/showUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:" />
+
+    <TextView
+        android:id="@+id/showUserBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Birthday:" />
+
+    <TextView
+        android:id="@+id/showUserHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Height:" />
+
+    <TextView
+        android:id="@+id/showUserWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weight:" />
+
+    <TextView
+        android:id="@+id/showUserDisease"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disease:" />
+
+    <TextView
+        android:id="@+id/showUserExperience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Experience:" />
+
+    <TextView
+        android:id="@+id/showUserBmi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BMI:" />
+
+    <TextView
+        android:id="@+id/showUserAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age:" />
+
+    <TextView
+        android:id="@+id/showUserScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score:" />
 
 </LinearLayout>
