@@ -101,13 +101,13 @@ public class UserdataManager {
         calcBMI();
 
         if(userAge >= 65)
-            userScore -= 10;
+            userScore -= 25;
 
         if(userBmi >= 30)
-            userScore -= 10;
+            userScore -= 25;
 
         if(userDisease.equals("Yes"))
-            userScore -= 10;
+            userScore -= 25;
 
         if(userExperience.equals("High"))
             userScore += 10;
