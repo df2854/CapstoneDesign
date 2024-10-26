@@ -1,6 +1,9 @@
 package com.cookandroid.aerobicapplication;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.cookandroid.aerobicapplication.userdata.CompleteListener;
 import com.cookandroid.aerobicapplication.userdata.SignupWithData;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +42,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         signupWithData = new SignupWithData();
+        LoadingDialog loadingDialog = new LoadingDialog();
 
         TextView back = (TextView) findViewById(R.id.back);
         back.setOnClickListener(v -> finish());
@@ -84,19 +89,23 @@ public class SignupActivity extends AppCompatActivity {
 
         submit = findViewById(R.id.signupbutton);
         submit.setOnClickListener(v -> {
+            loadingDialog.show(getSupportFragmentManager(), "loading"); // 로딩 화면 실행
+
             //일단 pw 체크만 조건으로, 추후 정보가 정확하게 입력되었는지 체크하는 조건문 필요
             if(pwc){
-                //singup
+                //회원 가입 class 실행
                 signupWithData.PushToString(name,id,pw,birthyear,birthmonth,birthdate,
                         height,weight,disease[diseaseInt],experience[experienceInt]);
                 signupWithData.SignupToFirebase(new CompleteListener(){
                     @Override
                     public void onSuccess() {
+                        loadingDialog.dismiss(); // 로딩화면 종료
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                     }
                     @Override
                     public void onFailure() {
+                        loadingDialog.dismiss(); // 로딩화면 종료
                         Toast.makeText(SignupActivity.this, "회원가입 실패", Toast.LENGTH_SHORT).show();
                     }
                 });

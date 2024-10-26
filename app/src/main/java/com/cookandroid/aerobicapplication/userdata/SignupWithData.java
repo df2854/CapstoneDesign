@@ -28,6 +28,7 @@ public class SignupWithData {
 
     public String strName, strId, strPw, strBirthYear, strBirthMonth, strBirthDate, strHeight, strWeight, strDisease, strExperience;
 
+    //클래스 내부에 data를 string으로 저장
     public void PushToString(EditText name, EditText id, EditText pw, EditText year, EditText month, EditText date,
                              EditText height, EditText weight, String disease, String experience){
         strName = name.getText().toString().trim();
@@ -48,7 +49,7 @@ public class SignupWithData {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     listener.onSuccess();
-                    SetDatatoFirebase();
+                    SetDatatoFirebase();        // 유저 데이터를 외부 저장소로 보냄
                 }
                 else
                     listener.onFailure();
