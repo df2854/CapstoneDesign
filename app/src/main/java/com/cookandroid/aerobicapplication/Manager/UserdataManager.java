@@ -33,18 +33,18 @@ public class UserdataManager {
     }
 
     // 유저 데이터 설정 메서드
-    public void setUserData(String id, String name, String birthday) {
+    public void setUserData(String id, String name, String birthday,
+                            String height, String weight, String disease, String experience) {
         this.userId = id;
         this.userName = name;
         this.userBirthday = birthday;
-        /*
-        * this.userHeight = height;
-        * this.userWeight = weight;
-        * this.userDisease = disease;
-        * this.userExperience = experience;
-        *
-        * setUserScore();
-        * */
+
+        this.userHeight = height;
+        this.userWeight = weight;
+        this.userDisease = disease;
+        this.userExperience = experience;
+
+        setUserScore();
     }
 
     // 바깥에서 유저 데이터 가져오는 메서드

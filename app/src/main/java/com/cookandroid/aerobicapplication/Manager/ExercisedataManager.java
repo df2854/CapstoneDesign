@@ -29,7 +29,7 @@ public class ExercisedataManager {
     }
 
     // 바깥에서 유저 데이터 가져오는 메서드
-    // 사용할때는 ExercisedataManager.getInstance().getUser------()
+    // 사용할때는 ExercisedataManager.getInstance().get------()
     public String getUserId() {
         return userId;
     }
