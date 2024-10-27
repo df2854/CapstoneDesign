@@ -52,33 +52,32 @@
 
     </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/currentLocationImage"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:visibility="gone"
-        android:scaleType="centerCrop"
-        android:src="@drawable/circle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    <!-- 예상 소요 시간을 보여주는 TextView -->
-    <TextView
-        android:id="@+id/estimatedTimeTextView"
-        android:layout_width="wrap_content"
+    <!-- 정보 레이아웃 추가 -->
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corners_background"
+        android:orientation="vertical"
+        android:background="@color/black"
         android:padding="16dp"
-        android:text="예상 소요 시간: 계산 중..."
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:layout_margin="16dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/buttonLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/estimatedDistanceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/estimatedTimeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <!-- 버튼 배치 레이아웃 -->
     <LinearLayout
@@ -104,8 +103,16 @@
             android:text="지정 완료"
             android:background="@color/design_default_color_primary"
             android:textColor="@android:color/white"/>
-        <!-- 추가 버튼을 여기에 추가할 수 있습니다 -->
-    </LinearLayout>
 
+        <!-- 다시 설정 버튼 추가 -->
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="다시 설정"
+            android:background="@color/design_default_color_secondary"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

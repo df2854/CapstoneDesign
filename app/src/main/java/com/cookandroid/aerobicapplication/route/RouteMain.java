@@ -1,9 +1,11 @@
 package com.cookandroid.aerobicapplication.route;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,11 +14,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.Manifest; // Android의 Manifest 클래스
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 
 import com.cookandroid.aerobicapplication.R;
 import com.skt.Tmap.TMapData;
+import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
@@ -24,12 +32,21 @@ import com.skt.Tmap.TMapView;
 
 import java.util.ArrayList;
 
-public class RouteMain extends AppCompatActivity {
+public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
     private TMapView tMapView;
     private ArrayList<TMapPoint> markerPoints = new ArrayList<>();  // 마커 위치 저장
     private boolean isStartPointSet = false;  // 출발지 설정 여부
     private TMapMarkerItem currentMarker;  // 현재 마커 객체 저장
-
+    private TMapGpsManager tMapGpsManager;
+    // 레이아웃에 포함된 텍스트 뷰 초기화
+    private TextView estimatedDistanceTextView;
+    private TextView estimatedTimeTextView;
+    private LinearLayout infoLayout;
+    private LinearLayout buttonLayout;
+    // 클래스 필드로 선언
+    private double totalDistance = 0; // 총 거리
+    private double totalDistanceInKm = 0; // 총 거리 (km)
+    private int estimatedTimeInMinutes = 0; // 예상 시간 (분)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +56,17 @@ public class RouteMain extends AppCompatActivity {
         tMapView = new TMapView(this);
         tMapView.setSKTMapApiKey("iiXmtmSmi66hsWmupLjKUKVteYjWcvI1nrms8BZa");
         linearLayoutTmap.addView(tMapView);
-
+        // 뷰 초기화
+        estimatedDistanceTextView = findViewById(R.id.estimatedDistanceTextView);
+        estimatedTimeTextView = findViewById(R.id.estimatedTimeTextView);
+        infoLayout = findViewById(R.id.infoLayout);
+        buttonLayout = findViewById(R.id.buttonLayout);
         // 줌 인/아웃 버튼 추가
         ImageButton btnZoomIn = findViewById(R.id.btnZoomIn);
         ImageButton btnZoomOut = findViewById(R.id.btnZoomOut);
-        ImageButton btnCurrentLocation = findViewById(R.id.btnCurrentLocation);
         Button btnSetStartPoint = findViewById(R.id.btnSetStart); // 출발지 설정 버튼
         Button btnEndSet = findViewById(R.id.btnEndSet);
+        Button btnReset = findViewById(R.id.btnReset);
         // 확대 버튼 클릭 리스너
         btnZoomIn.setOnClickListener(v -> tMapView.MapZoomIn()); // 지도 확대
 
@@ -53,16 +74,32 @@ public class RouteMain extends AppCompatActivity {
         btnZoomOut.setOnClickListener(v -> tMapView.MapZoomOut()); // 지도 축소
 
 
-        // 현재 위치 GPS 버튼 클릭 리스너 추가
-        btnCurrentLocation.setOnClickListener(v -> showCurrentLocation());
+        // 위치 권한 요청
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            initializeGps();
+        }
+
+        // 현재 위치 버튼 클릭 시 실행
+        ImageButton btnCurrentLocation = findViewById(R.id.btnCurrentLocation);
+        btnCurrentLocation.setOnClickListener(v -> {
+            if (tMapGpsManager != null) {
+                tMapGpsManager.setProvider(TMapGpsManager.GPS_PROVIDER);
+                tMapGpsManager.OpenGps();
+                Toast.makeText(this, "현재 위치를 가져옵니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // 출발지 설정 버튼 클릭 리스너 추가
         btnSetStartPoint.setOnClickListener(v -> {
             if (!isStartPointSet) {
                 isStartPointSet = true;  // 출발지 설정이 완료되었으므로 여러 개의 마커를 찍을 수 있도록 변경
 //                btnSetStartPoint.setText("경로 지정"); // 버튼 텍스트 변경
 //                Toast.makeText(this, "출발지가 설정되었습니다. 이제 여러 마커를 찍을 수 있습니다.", Toast.LENGTH_SHORT).show();
-                btnEndSet.setVisibility(View.VISIBLE);  // 이미지 보이기
-
+                btnEndSet.setVisibility(View.VISIBLE);  // "지정 완료" 버튼 보이기
+                btnSetStartPoint.setVisibility(View.GONE);  // "출발지 설정" 버튼 숨기기
+                btnReset.setVisibility(View.VISIBLE);  // "다시 설정" 버튼 보이기
             } else {
 //                Toast.makeText(this, "이미 출발지가 설정되었습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -71,12 +108,60 @@ public class RouteMain extends AppCompatActivity {
         // 경로 지정 완료 버튼 클릭 리스너 추가
         btnEndSet.setOnClickListener(v -> {
             if (markerPoints.size() < 2) {
-//                Toast.makeText(this, "경로를 계산하기 위해 최소 2개의 마커가 필요합니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "경로를 계산하기 위해 최소 2개의 마커가 필요합니다.", Toast.LENGTH_SHORT).show();
             } else {
-                TMapPoint startPoint = markerPoints.get(0); // 첫 번째 마커
-                TMapPoint endPoint = markerPoints.get(markerPoints.size() - 1); // 마지막 마커
-                calculateEstimatedTime(startPoint, endPoint); // 예상 시간 계산
+                // 총 거리 초기화
+                totalDistance = 0;
+
+                // 모든 마커 간의 거리 계산
+                for (int i = 0; i < markerPoints.size() - 1; i++) {
+                    TMapPoint startPoint = markerPoints.get(i);
+                    TMapPoint endPoint = markerPoints.get(i + 1);
+                    totalDistance += calculateDistance(startPoint, endPoint);
+                    calculateRoute(startPoint, endPoint);
+                }
+
+                // 총 거리 킬로미터로 변환 및 소수점 한 자리 수로 표현
+                totalDistanceInKm = totalDistance / 1000.0;
+                totalDistanceInKm = Math.round(totalDistanceInKm * 10) / 10.0;
+
+                // 예상 시간 계산
+                double speed = 4;
+                double estimatedTimeInHours = totalDistanceInKm / speed;
+                estimatedTimeInMinutes = (int) (estimatedTimeInHours * 60);
+
+                // 결과 표시
+                runOnUiThread(() -> {
+                    estimatedDistanceTextView.setText(String.format("총 거리: %.1f km", totalDistanceInKm));
+                    estimatedTimeTextView.setText(String.format("예상 소요 시간: %d분", estimatedTimeInMinutes));
+                    infoLayout.setVisibility(View.VISIBLE);
+                    buttonLayout.setVisibility(View.GONE);
+                });
             }
+        });
+        // "다시 설정" 버튼 클릭 리스너
+        btnReset.setOnClickListener(v -> {
+            // 모든 마커, 경로 폴리라인 제거
+            tMapView.removeAllMarkerItem();
+            tMapView.removeAllTMapPolyLine();
+
+            // 거리, 시간 초기화
+            markerPoints.clear();
+            totalDistance = 0;
+            totalDistanceInKm = 0;
+            estimatedTimeInMinutes = 0;
+            isStartPointSet = false;
+
+            // 레이아웃 및 버튼 상태 초기화
+            estimatedDistanceTextView.setText("");
+            estimatedTimeTextView.setText("");
+            infoLayout.setVisibility(View.GONE);  // 거리 및 시간 정보 숨기기
+            btnSetStartPoint.setVisibility(View.VISIBLE); // 출발지 설정 버튼 다시 보이기
+            btnEndSet.setVisibility(View.GONE);
+            btnReset.setVisibility(View.GONE);
+            buttonLayout.setVisibility(View.VISIBLE);
+
+            Toast.makeText(this, "경로가 초기화되었습니다.", Toast.LENGTH_SHORT).show();
         });
 
         // TMapView에 클릭 리스너 설정
@@ -125,8 +210,8 @@ public class RouteMain extends AppCompatActivity {
         markerItem.setPosition(0.5f, 1.0f);
 
         // 마커 이미지 로드 및 크기 조정
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.marker);  // 마커 이미지 로드
-        Bitmap resizedIcon = Bitmap.createScaledBitmap(icon, 125, 125, false);  // 가로 세로 100x100으로 크기 조정
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.m1);  // 마커 이미지 로드
+        Bitmap resizedIcon = Bitmap.createScaledBitmap(icon, 160, 180, false);  // 가로 세로 100x100으로 크기 조정
         markerItem.setIcon(resizedIcon);
 
         // 마커 ID 설정
@@ -141,18 +226,15 @@ public class RouteMain extends AppCompatActivity {
 
         // 기존 마커와의 거리 계산
         for (TMapPoint existingPoint : markerPoints) {
-            if (calculateDistance(point, existingPoint) < 30) { // 30m 이하인 경우
+            if (calculateDistance(point, existingPoint) < 30 && isStartPointSet == true) { // 30m 이하인 경우
                 highlightMarker(existingPoint); // 기존 마커 강조
                 markerPoints.add(point);
                 return; // 추가할 수 없음
             }
         }
 
-
-
         // 지도에 마커 추가
         tMapView.addMarkerItem(markerId, markerItem);
-
 
         // 마커 추가 메시지 표시
 //        Toast.makeText(this, "마커가 추가되었습니다!", Toast.LENGTH_SHORT).show();
@@ -184,33 +266,12 @@ public class RouteMain extends AppCompatActivity {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return (float) (R * c * 1000); // 결과를 미터 단위로 변환
     }
-    private void calculateEstimatedTime(TMapPoint startPoint, TMapPoint endPoint) {
-        TMapData tMapData = new TMapData();
-        tMapData.findPathDataWithType(TMapData.TMapPathType.PEDESTRIAN_PATH, startPoint, endPoint, new TMapData.FindPathDataListenerCallback() {
 
-            @Override
-            public void onFindPathData(TMapPolyLine polyLine) {
-                // 경로 정보에서 소요 시간 가져오기
-                double estimatedTime = polyLine.getDistance(); // 경로 길이 가져오기
-                double speed = 1.5; // 평균 보행 속도 (km/h)
-                double timeInHours = estimatedTime / 1000.0 / speed; // km로 변환 후 속도로 나누기
-                int minutes = (int) (timeInHours * 60); // 분으로 변환
-
-                // 예상 소요 시간 표시
-                runOnUiThread(() -> {
-                    // TextView를 사용하여 UI에 표시
-                    TextView estimatedTimeTextView = findViewById(R.id.estimatedTimeTextView);
-                    Button btnSetStartPoint = findViewById(R.id.btnSetStart); // 출발지 설정 버튼
-                    Button btnEndSet = findViewById(R.id.btnEndSet);
-                    btnEndSet.setVisibility(View.GONE);
-                    btnSetStartPoint.setVisibility(View.GONE);
-                    estimatedTimeTextView.setVisibility(View.VISIBLE);
-                    estimatedTimeTextView.setText("예상 소요 시간: " + minutes + "분");
-                }); }
-        });
-    }
     // 기존 마커를 강조하는 메서드
     private void highlightMarker(TMapPoint existingPoint) {
+        if (!isStartPointSet) {
+            return; // 출발지가 설정되지 않았다면 메서드 종료
+        }
         String markerId = "marker_" + existingPoint.toString();
         TMapMarkerItem markerItem = tMapView.getMarkerItemFromID(markerId);
 
@@ -255,39 +316,51 @@ public class RouteMain extends AppCompatActivity {
 
                 // 지도에 경로 추가
                 tMapView.addTMapPolyLine("line_" + startPoint.toString() + "_" + endPoint.toString(), polyLine);
-
-                // 경로가 계산되었다는 메시지 표시
-//                runOnUiThread(() -> Toast.makeText(RouteMain.this, "경로가 계산되었습니다!", Toast.LENGTH_SHORT).show());
             }
         });
 
-
     }
 
-    private void showCurrentLocation() {
-        TMapPoint currentPoint = tMapView.getLocationPoint(); // 현재 위치 좌표 가져오기
-        if (currentPoint != null) {
-            // 지도 중앙을 현재 위치로 이동
-            tMapView.setCenterPoint(currentPoint.getLongitude(), currentPoint.getLatitude());
+    private void initializeGps() {
+        tMapGpsManager = new TMapGpsManager(this);
+        tMapGpsManager.setMinTime(1000);
+        tMapGpsManager.setMinDistance(5);
+        tMapGpsManager.setProvider(TMapGpsManager.GPS_PROVIDER);
+        tMapGpsManager.setLocationCallback(); // 위치 변경 콜백 설정
+    }
 
-            // 현재 위치 이미지를 보여줌
-            ImageView currentLocationImage = findViewById(R.id.currentLocationImage);
-            currentLocationImage.setVisibility(View.VISIBLE);  // 이미지 보이기
+    @Override
+    public void onLocationChange(@NonNull Location location) {
+        double lat = location.getLatitude();
+        double lon = location.getLongitude();
+        TMapPoint currentLocation = new TMapPoint(lat, lon);
 
-            // 현재 위치 이미지의 위치를 설정 (지도 중앙)
-            currentLocationImage.setX((tMapView.getWidth() - currentLocationImage.getWidth()) / 2);
-            currentLocationImage.setY((tMapView.getHeight() - currentLocationImage.getHeight()) / 2);
+        // 지도 중심을 현재 위치로 이동
+        tMapView.setCenterPoint(lon, lat);
 
-            // 이미지를 맨 앞으로 가져옴
-            currentLocationImage.bringToFront();
+        TMapMarkerItem markerItem = new TMapMarkerItem();
+        markerItem.setTMapPoint(currentLocation);
+        markerItem.setName("현재 위치");
 
-            // 일정 시간 후 이미지 숨기기
-            new Handler().postDelayed(() -> {
-                currentLocationImage.setVisibility(View.GONE);
-            }, 1000);  // 1000ms = 1초 후에 사라짐
+        // drawable에서 아이콘 설정
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.realcircle);
+        // 비트맵 크기 조정
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+        markerItem.setIcon(resizedBitmap); // 조정된 크기의 비트맵 설정
+
+        // 마커 추가
+        tMapView.addMarkerItem("currentLocationMarker", markerItem);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            initializeGps();
         } else {
-//            Toast.makeText(RouteMain.this, "현재 위치를 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "위치 권한이 필요합니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }
