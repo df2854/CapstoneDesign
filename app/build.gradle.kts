@@ -55,4 +55,6 @@ dependencies {
     implementation(files("libs\\com.skt.Tmap_1.76.jar"))
     implementation("androidx.preference:preference-ktx:1.2.0")
 
+    // 로딩화면
+    implementation ("com.github.ybq:Android-SpinKit:1.4.0")
 }

@@ -26,15 +26,21 @@ public class SignupWithData {
         mStore = FirebaseFirestore.getInstance();
     }
 
-    public String strName, strId, strPw, strBirthYear, strBirthMonth, strBirthDate;
+    public String strName, strId, strPw, strBirthYear, strBirthMonth, strBirthDate, strHeight, strWeight, strDisease, strExperience;
 
-    public void EditToString(EditText name, EditText id, EditText pw, EditText year, EditText month, EditText date){
+    //클래스 내부에 data를 string으로 저장
+    public void PushToString(EditText name, EditText id, EditText pw, EditText year, EditText month, EditText date,
+                             EditText height, EditText weight, String disease, String experience){
         strName = name.getText().toString().trim();
         strId = id.getText().toString().trim();
         strPw = pw.getText().toString().trim();
         strBirthYear = year.getText().toString().trim();
         strBirthMonth = month.getText().toString().trim();
         strBirthDate = date.getText().toString().trim();
+        strHeight = height.getText().toString().trim();
+        strWeight = weight.getText().toString().trim();
+        strDisease = disease;
+        strExperience = experience;
     }
 
     public void SignupToFirebase(CompleteListener listener){
@@ -43,7 +49,7 @@ public class SignupWithData {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     listener.onSuccess();
-                    SetDatatoFirebase();
+                    SetDatatoFirebase();        // 유저 데이터를 외부 저장소로 보냄
                 }
                 else
                     listener.onFailure();
@@ -61,6 +67,10 @@ public class SignupWithData {
         userMap.put(FirebaseData.user, strId);
         userMap.put(FirebaseData.name, strName);
         userMap.put(FirebaseData.birthday, strBirthYear + "-" + strBirthMonth + "-" + strBirthDate);
+        userMap.put(FirebaseData.height, strHeight);
+        userMap.put(FirebaseData.weight, strWeight);
+        userMap.put(FirebaseData.disease, strDisease);
+        userMap.put(FirebaseData.experience, strExperience);
 
         //map 컨테이너에 merge -> 유저/해당 유저 uid 디렉토리에 저장
         mStore.collection(FirebaseData.user).document(uid).set(userMap, SetOptions.merge());

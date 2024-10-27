@@ -50,19 +50,25 @@ public class LoginWithData {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot document = task.getResult();
 
-                String userN = document.getData().get(FirebaseData.name).toString();
-                String userB = document.getData().get(FirebaseData.birthday).toString();
+                String userName = document.getData().get(FirebaseData.name).toString();
+                String userBirth = document.getData().get(FirebaseData.birthday).toString();
+                String userHeight = document.getData().get(FirebaseData.height).toString();
+                String userWeight = document.getData().get(FirebaseData.weight).toString();
+                String userDisease = document.getData().get(FirebaseData.disease).toString();
+                String userExperience = document.getData().get(FirebaseData.experience).toString();
 
-                AddToManager(strId, userN, userB);
+                AddToManager(strId, userName, userBirth, userHeight, userWeight, userDisease, userExperience);
             }
         });
     }
 
 
-    private void AddToManager(String id, String name, String birthday){
-        UserdataManager.getInstance().setUserData(id, name, birthday);
+    private void AddToManager(String id, String name, String birthday,
+                              String height, String weight, String disease, String experience){
+        UserdataManager.getInstance().setUserData(id, name, birthday, height, weight, disease, experience);
 
-        Log.d("Tag", UserdataManager.getInstance().getUserId() + " " + UserdataManager.getInstance().getUserBirthday());
+        Log.d("!Get Data!", "Age: " + UserdataManager.getInstance().getUserAge() +
+                                    " / Bmi : " + UserdataManager.getInstance().getUserBmi()+
+                                    " / Score : " + UserdataManager.getInstance().getUserScore());
     }
-
 }

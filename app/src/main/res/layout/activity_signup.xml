@@ -49,26 +49,6 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/signNametext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="이름"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    />
-
-                <EditText
-                    android:id="@+id/signName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint=" 이름"
-                    android:inputType="textPersonName"
-                    android:text="" />
-
-                <TextView
                     android:id="@+id/signIDtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,51 +66,6 @@
                     android:hint="이메일 아이디"
                     android:inputType="textPersonName"
                     android:text="" />
-
-                <TextView
-                    android:id="@+id/signBirthtext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="생년월일"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/signBirth"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginRight="10dp"
-                        android:ems="10"
-                        android:hint=" 년(4자)"
-                        android:inputType="textPersonName"
-                        android:text="" />
-                    <EditText
-                        android:id="@+id/signBirth2"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginRight="10dp"
-                        android:ems="10"
-                        android:hint=" 월"
-                        android:inputType="textPersonName"
-                        android:text="" />
-                    <EditText
-                        android:id="@+id/signBirth3"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:ems="10"
-                        android:hint=" 일"
-                        android:inputType="textPersonName"
-                        android:text="" />
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/signPWtext"
@@ -186,6 +121,190 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/signNametext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="이름"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    />
+
+                <EditText
+                    android:id="@+id/signName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint=" 이름"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/signBirthtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="생년월일"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/signBirth"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="10dp"
+                        android:ems="10"
+                        android:hint=" 년(4자)"
+                        android:inputType="textPersonName"
+                        android:text="" />
+                    <EditText
+                        android:id="@+id/signBirth2"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginRight="10dp"
+                        android:ems="10"
+                        android:hint=" 월"
+                        android:inputType="textPersonName"
+                        android:text="" />
+                    <EditText
+                        android:id="@+id/signBirth3"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:ems="10"
+                        android:hint=" 일"
+                        android:inputType="textPersonName"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/signHeightText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="키"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        />
+
+                    <EditText
+                        android:id="@+id/signHeight"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:ems="10"
+                        android:hint=" (cm)"
+                        android:inputType="textPersonName"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/signWeightText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="몸무게"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        />
+
+                    <EditText
+                        android:id="@+id/signWeight"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:ems="10"
+                        android:hint=" (kg)"
+                        android:inputType="textPersonName"
+                        android:text="" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/signDiseasetext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="질병"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/signDiseaseRG"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/disease"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="있음"
+                        android:textSize="17dp"/>
+
+                    <RadioButton
+                        android:id="@+id/notDisease"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="없음"
+                        android:textSize="17dp"/>
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/signExperiencetext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="운동 경험"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:id="@+id/signExperienceRG"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/high"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="상"
+                        android:textSize="17dp"/>
+
+                    <RadioButton
+                        android:id="@+id/normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="중"
+                        android:textSize="17dp"/>
+
+                    <RadioButton
+                        android:id="@+id/low"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="하"
+                        android:textSize="17dp"/>
+
+                </RadioGroup>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/signupbutton"

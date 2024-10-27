@@ -9,7 +9,7 @@ public class UserdataManager {
     private String userBirthday;
     private String userHeight;
     private String userWeight;
-    private String userDisease;             // 0 or 1
+    private String userDisease;             // Yes or No
     private String userExperience;          // High or Normal or Low
 
     private double userBmi;
@@ -33,18 +33,18 @@ public class UserdataManager {
     }
 
     // 유저 데이터 설정 메서드
-    public void setUserData(String id, String name, String birthday) {
+    public void setUserData(String id, String name, String birthday,
+                            String height, String weight, String disease, String experience) {
         this.userId = id;
         this.userName = name;
         this.userBirthday = birthday;
-        /*
-        * this.userHeight = height;
-        * this.userWeight = weight;
-        * this.userDisease = disease;
-        * this.userExperience = experience;
-        *
-        * setUserScore();
-        * */
+
+        this.userHeight = height;
+        this.userWeight = weight;
+        this.userDisease = disease;
+        this.userExperience = experience;
+
+        setUserScore();
     }
 
     // 바깥에서 유저 데이터 가져오는 메서드
@@ -81,7 +81,6 @@ public class UserdataManager {
     }
 
 
-
     // 로그아웃 시 데이터 초기화
     public void clearData() {
         userId = null;
@@ -102,13 +101,13 @@ public class UserdataManager {
         calcBMI();
 
         if(userAge >= 65)
-            userScore -= 10;
+            userScore -= 25;
 
         if(userBmi >= 30)
-            userScore -= 10;
+            userScore -= 25;
 
-        if(userDisease.equals("O"))
-            userScore -= 10;
+        if(userDisease.equals("Yes"))
+            userScore -= 25;
 
         if(userExperience.equals("High"))
             userScore += 10;
