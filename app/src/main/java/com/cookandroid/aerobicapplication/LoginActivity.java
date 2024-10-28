@@ -43,34 +43,34 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(id.getText().toString())) {
-                    Toast.makeText(LoginActivity.this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(pw.getText().toString())) {
-                    Toast.makeText(LoginActivity.this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(id.getText().toString())) {
+//                    Toast.makeText(LoginActivity.this, "아이디를 입력해 주세요", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                if (TextUtils.isEmpty(pw.getText().toString())) {
+//                    Toast.makeText(LoginActivity.this, "비밀번호를 입력해 주세요", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                loadingDialog.show(getSupportFragmentManager(), "loading"); // 로딩화면 실행
+//                loginWithData.LogintoFirebase(id, pw, new CompleteListener() {
+//                    @Override
+//                    public void onSuccess() {
+//                        loadingDialog.dismiss(); // 로딩화면 종료
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onFailure() {
+//                        loadingDialog.dismiss(); // 로딩화면 종료
+//                        Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
-                loadingDialog.show(getSupportFragmentManager(), "loading"); // 로딩화면 실행
-                loginWithData.LogintoFirebase(id, pw, new CompleteListener() {
-                    @Override
-                    public void onSuccess() {
-                        loadingDialog.dismiss(); // 로딩화면 종료
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure() {
-                        loadingDialog.dismiss(); // 로딩화면 종료
-                        Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-//                //로그인 없이 실험 할때
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
+                //로그인 없이 실험 할때
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
 
             }
         });
