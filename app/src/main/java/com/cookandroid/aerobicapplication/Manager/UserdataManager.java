@@ -4,16 +4,16 @@ import java.util.Calendar;
 
 public class UserdataManager {
     // 유저 데이터를 저장하는 변수
-    private String userId;
-    private String userName;
-    private String userBirthday;
-    private String userHeight;
-    private String userWeight;
-    private String userDisease;             // Yes or No
-    private String userExperience;          // High or Normal or Low
+    private String userId = "Null";
+    private String userName = "Null";
+    private String userBirthday = "Null";
+    private String userHeight = "Null";
+    private String userWeight = "Null";
+    private String userDisease = "Null";             // Yes or No
+    private String userExperience = "Null";          // High or Normal or Low
 
-    private double userBmi;
-    private int userAge;
+    private double userBmi = 0;
+    private int userAge = 0;
     private int userScore = 100;
 
 
