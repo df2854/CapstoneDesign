@@ -38,6 +38,18 @@ public class ExercisedataManager {
         this.endTime = time;
     }
 
+    // 소요 시간 계산
+    private void calcMinTime(){
+        currentMinTime = (endTime - startTime) / 1000 / 60;
+    }
+
+    // 소모 칼로리 계산
+    private void calcKcal(){
+        int weight = Integer.parseInt(UserdataManager.getInstance().getUserWeight());
+        currentKcal = weight * (int)(currentDistance);
+    }
+
+
     // 바깥에서 유저 데이터 가져오는 메서드
     // 사용할때는 ExercisedataManager.getInstance().get------()
     public double getCurrentDistance() {
@@ -52,15 +64,6 @@ public class ExercisedataManager {
         return currentKcal;
     }
 
-
-    private void calcMinTime(){
-        currentMinTime = (endTime - startTime) / 1000 / 60;
-    }
-
-    private void calcKcal(){
-        int weight = Integer.parseInt(UserdataManager.getInstance().getUserWeight());
-        currentKcal = weight * (int)(currentDistance);
-    }
 
     // 데이터 초기화
     public void clearData() {
