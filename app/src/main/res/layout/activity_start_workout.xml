@@ -32,14 +32,14 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:id="@+id/btnZoomIn"
-            android:src="@drawable/pl"
+            android:src="@drawable/plus"
             android:scaleType="centerCrop"/>
 
         <ImageButton
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:id="@+id/btnZoomOut"
-            android:src="@drawable/mi"
+            android:src="@drawable/minus"
             android:scaleType="centerCrop"/>
 
         <ImageButton
@@ -57,26 +57,51 @@
         android:id="@+id/infoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/black"
+        android:orientation="horizontal"
+        android:background="@color/white"
         android:padding="16dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/estimatedDistanceTextView"
-            android:layout_width="wrap_content"
+        <!-- 거리 및 시간 정보 -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:paddingBottom="8dp" />
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/estimatedTimeTextView"
+            <TextView
+                android:id="@+id/estimatedDistanceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#1883EF"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:paddingRight="5dp" />
+
+            <TextView
+                android:id="@+id/estimatedTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/estimatedCalorieTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- 시작 버튼 -->
+        <Button
+            android:id="@+id/btnStartRoute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:text="시작"
+            android:background="@color/design_default_color_primary"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
     <!-- 버튼 배치 레이아웃 -->
@@ -114,5 +139,16 @@
             android:textColor="@android:color/white"
             android:visibility="gone"/>
     </LinearLayout>
+
+    <!-- 마커 추가 버튼 레이어 -->
+    <ImageButton
+        android:id="@+id/toggleMarkerButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/marker"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
