@@ -10,4 +10,12 @@
         app:key="feedback"
         app:title="알림"/>
 
+    <Preference
+        app:key="logout"
+        app:title="로그아웃"/>
+
+    <Preference
+        app:key="delete_account"
+        app:title="회원 탈퇴"/>
+
 </PreferenceScreen>
