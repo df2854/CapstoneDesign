@@ -36,6 +36,7 @@ public class MainMenuHomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RouteMain.class);
+                intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
                 startActivity(intent);
             }
         });

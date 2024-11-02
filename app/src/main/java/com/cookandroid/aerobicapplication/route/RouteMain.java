@@ -56,6 +56,22 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.cookandroid.aerobicapplication.R.layout.activity_start_workout);
+        // 위치 권한 요청
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            initializeGps();
+        }
+
+        // GPS 시작 플래그 확인
+        if (getIntent().getBooleanExtra("startGps", false)) {
+            // GPS 기능을 활성화하여 현재 위치 가져오기
+            if (tMapGpsManager != null) {
+                tMapGpsManager.setProvider(TMapGpsManager.NETWORK_PROVIDER);
+                tMapGpsManager.OpenGps();
+//                Toast.makeText(this, "현재 위치를 가져옵니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
         tMapView = new TMapView(this);
@@ -73,18 +89,12 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         Button btnSetStartPoint = findViewById(R.id.btnSetStart); // 출발지 설정 버튼
         Button btnEndSet = findViewById(R.id.btnEndSet);
         Button btnReset = findViewById(R.id.btnReset);
+
         // 확대 버튼 클릭 리스너
         btnZoomIn.setOnClickListener(v -> tMapView.MapZoomIn()); // 지도 확대
 
         // 축소 버튼 클릭 리스너
         btnZoomOut.setOnClickListener(v -> tMapView.MapZoomOut()); // 지도 축소
-
-        // 위치 권한 요청
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        } else {
-            initializeGps();
-        }
 
         // 현재 위치 버튼 클릭 시 실행
         ImageButton btnCurrentLocation = findViewById(R.id.btnCurrentLocation);
