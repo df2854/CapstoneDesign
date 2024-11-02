@@ -37,8 +37,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     private boolean isStartPointSet = false;  // 출발지 설정 여부
     private boolean isMarkerAddEnabled = false;
     private TMapMarkerItem currentMarker;  // 현재 마커 객체 저장
+    ArrayList<TMapMarkerItem> makerList = new ArrayList<>();
     private TMapGpsManager tMapGpsManager;
-
+    int currentImage = R.drawable.startmarker;
     // 레이아웃에 포함된 텍스트 뷰 초기화
     private TextView estimatedDistanceTextView;
     private TextView estimatedTimeTextView;
@@ -97,13 +98,14 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
         // 출발지 설정 버튼 클릭 리스너 추가
         btnSetStartPoint.setOnClickListener(v -> {
-            if (!isStartPointSet) {
+            if (markerPoints.isEmpty()) {
+                Toast.makeText(this, "마커를 먼저 추가해 주세요.", Toast.LENGTH_SHORT).show();
+            }else if (!isStartPointSet) {
                 isStartPointSet = true;  // 출발지 설정이 완료되었으므로 여러 개의 마커를 찍을 수 있도록 변경
+                currentImage = R.drawable.middlemarker;
                 btnEndSet.setVisibility(View.VISIBLE);  // "지정 완료" 버튼 보이기
                 btnSetStartPoint.setVisibility(View.GONE);  // "출발지 설정" 버튼 숨기기
                 btnReset.setVisibility(View.VISIBLE);  // "다시 설정" 버튼 보이기
-            } else {
-//                Toast.makeText(this, "이미 출발지가 설정되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -112,6 +114,12 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             if (markerPoints.size() < 2) {
                 Toast.makeText(this, "경로를 계산하기 위해 최소 2개의 마커가 필요합니다.", Toast.LENGTH_SHORT).show();
             } else {
+
+                if (!makerList.isEmpty()) {
+                    TMapMarkerItem lastMarker = makerList.get(makerList.size() - 1);
+                    updateMarkerIcon(lastMarker,R.drawable.finishmarker);
+                    tMapView.invalidate();  // 마커 이미지 변경 후 강제 갱신
+                }
                 // 총 거리 초기화
                 totalDistance = 0;
 
@@ -166,7 +174,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             // 모든 마커, 경로 폴리라인 제거
             tMapView.removeAllMarkerItem();
             tMapView.removeAllTMapPolyLine();
-
+            currentImage = R.drawable.startmarker;
             // 거리, 시간 초기화
             markerPoints.clear();
             totalDistance = 0;
@@ -215,6 +223,18 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             currentMarker = null; // 마커 정보 초기화
         }
     }
+
+    private void updateMarkerIcon(TMapMarkerItem marker, int resourceId) {
+        // 새 이미지 로드 및 크기 조정
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), resourceId);
+        Bitmap resizedIcon = Bitmap.createScaledBitmap(icon, 165, 190, false); // 원하는 크기로 조정
+
+        // 마커 아이콘 설정
+        marker.setIcon(resizedIcon);
+
+    }
+
+
     // 클릭한 위치에 마커를 추가하는 메서드
     private void addMarker(TMapPoint point) {
        if(isMarkerAddEnabled) { // 기존 마커 삭제
@@ -231,11 +251,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
            // 마커의 핀 설정 (중앙에 위치하도록)
            markerItem.setPosition(0.5f, 1.0f);
 
-           // 마커 이미지 로드 및 크기 조정
-           Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.startmarker);  // 마커 이미지 로드
-           Bitmap resizedIcon = Bitmap.createScaledBitmap(icon, 165, 190, false);  // 가로 세로 100x100으로 크기 조정
-           markerItem.setIcon(resizedIcon);
-
+           updateMarkerIcon(markerItem, currentImage);
            // 마커 ID 설정
            String markerId = "marker_" + point.toString();
            markerItem.setID(markerId);
@@ -257,12 +273,12 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
            // 지도에 마커 추가
            tMapView.addMarkerItem(markerId, markerItem);
+           makerList.add(markerItem); // 모든 마커를 리스트에 추가
 
            // 마커 추가 메시지 표시
 //        Toast.makeText(this, "마커가 추가되었습니다!", Toast.LENGTH_SHORT).show();
            // 마커의 위치를 리스트에 저장
            markerPoints.add(point);
-
            // 출발지가 설정된 경우에만 경로 계산
            if (isStartPointSet && markerPoints.size() >= 2) {
                TMapPoint lastPoint = markerPoints.get(markerPoints.size() - 2); // 마지막에서 두 번째 마커
@@ -301,7 +317,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         // 마커가 존재하는 경우
         if (markerItem != null) {
             // 마커 이미지 로드 및 크기 조정
-            Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.startmarker);  // 강조된 마커 이미지 로드
+            Bitmap icon = BitmapFactory.decodeResource(getResources(), currentImage);  // 강조된 마커 이미지 로드
             Bitmap resizedIcon = Bitmap.createScaledBitmap(icon, 180, 205, false);  // 크기 조정 (예: 120x120)
 
             // 마커의 아이콘을 강조된 아이콘으로 설정
@@ -317,7 +333,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
             // 일정 시간 후 원래 크기로 복구 (여기서는 1초 후)
             new Handler().postDelayed(() -> {
-                Bitmap originalIcon = BitmapFactory.decodeResource(getResources(), R.drawable.startmarker);
+                Bitmap originalIcon = BitmapFactory.decodeResource(getResources(), currentImage);
                 Bitmap originalResizedIcon = Bitmap.createScaledBitmap(originalIcon, 165, 190, false);
                 markerItem.setIcon(originalResizedIcon);
                 tMapView.removeMarkerItem(markerId);
@@ -343,6 +359,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         });
 
     }
+
+   ////////////////////////Gps///////////////////////////
 
     private void initializeGps() {
         tMapGpsManager = new TMapGpsManager(this);

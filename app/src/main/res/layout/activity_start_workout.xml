@@ -57,27 +57,36 @@
         android:id="@+id/infoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="@color/white"
         android:padding="16dp"
+        android:paddingBottom="0dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- 거리 및 시간 정보 -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/estimatedDistanceTextView"
-                android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <!-- 거리와 시간 텍스트 왼쪽 정렬 -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="#1883EF"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:paddingRight="5dp" />
+                android:layout_weight="1"
+                android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/estimatedDistanceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#1883EF"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:paddingRight="5dp" />
 
             <TextView
                 android:id="@+id/estimatedTimeTextView"
@@ -85,23 +94,31 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/estimatedCalorieTextView"
+            <!-- 시작 버튼 오른쪽 정렬 -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
+                android:gravity="end">
+
+                <ImageButton
+                    android:id="@+id/btnStartRoute"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/startwalk"
+                    android:scaleType="centerCrop"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- 시작 버튼 -->
-        <Button
-            android:id="@+id/btnStartRoute"
+        <TextView
+            android:id="@+id/estimatedCalorieTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시작"
-            android:background="@color/design_default_color_primary"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/black"
+            android:paddingLeft="3dp"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <!-- 버튼 배치 레이아웃 -->
