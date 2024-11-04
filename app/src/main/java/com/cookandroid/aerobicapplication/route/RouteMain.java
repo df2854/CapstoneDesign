@@ -1,5 +1,6 @@
 package com.cookandroid.aerobicapplication.route;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.graphics.PointF;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,7 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
+import com.cookandroid.aerobicapplication.Manager.ExercisedataManager;
 import com.cookandroid.aerobicapplication.R;
+import com.cookandroid.aerobicapplication.SignupActivity;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapMarkerItem;
@@ -90,6 +94,14 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         Button btnEndSet = findViewById(R.id.btnEndSet);
         Button btnReset = findViewById(R.id.btnReset);
 
+        //임시 운동종료
+        Button btnWorkEnd = findViewById(R.id.btnWorkEnd);
+        btnWorkEnd.setOnClickListener(v -> {
+            ExercisedataManager.getInstance().setEndTime(SystemClock.elapsedRealtime());
+            Intent intent = new Intent(getApplicationContext(), WorkoutResultActivity.class);
+            startActivity(intent);
+        });
+
         // 확대 버튼 클릭 리스너
         btnZoomIn.setOnClickListener(v -> tMapView.MapZoomIn()); // 지도 확대
 
@@ -144,13 +156,15 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 총 거리 킬로미터로 변환 및 소수점 한 자리 수로 표현
                 totalDistanceInKm = totalDistance / 1000.0;
                 totalDistanceInKm = Math.round(totalDistanceInKm * 10) / 10.0;
+                ExercisedataManager.getInstance().setCurrentDistance(totalDistanceInKm);
 
                 // 예상 시간 계산
                 double speed = 4;
                 double estimatedTimeInHours = totalDistanceInKm / speed;
                 estimatedTimeInMinutes = (int) (estimatedTimeInHours * 60);
+                ExercisedataManager.getInstance().setStartTime(SystemClock.elapsedRealtime());
 
-                // 예상 칼로리 계싼
+                // 예상 칼로리 계산
                 estiimatedCalrorie = (int) totalDistanceInKm * 40;
 
                 // 결과 표시
