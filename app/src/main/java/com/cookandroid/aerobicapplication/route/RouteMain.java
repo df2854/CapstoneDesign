@@ -360,8 +360,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             public void onFindPathData(TMapPolyLine polyLine) {
                 polyLine.setLineColor(Color.rgb(67, 155, 255)); // 경로 라인 색상 설정
                 polyLine.setOutLineColor(Color.WHITE);
-                polyLine.setLineWidth(30); // 경로 라인의 두께 설정
-                polyLine.setOutLineWidth(40);
+                polyLine.setLineWidth(20); // 경로 라인의 두께 설정
+                polyLine.setOutLineWidth(28);
 
                 // 지도에 경로 추가
                 tMapView.addTMapPolyLine("line_" + startPoint.toString() + "_" + endPoint.toString(), polyLine);
@@ -396,7 +396,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         // drawable에서 아이콘 설정
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.realcircle);
         // 비트맵 크기 조정
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 80, 800, false);
         markerItem.setIcon(resizedBitmap); // 조정된 크기의 비트맵 설정
 
         // 마커 추가
