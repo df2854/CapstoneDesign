@@ -8,12 +8,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cookandroid.aerobicapplication.MainActivity;
+import com.cookandroid.aerobicapplication.Manager.ExercisedataManager;
 import com.cookandroid.aerobicapplication.R;
 
 
 public class WorkoutResultActivity extends AppCompatActivity {
 
-    private TextView resultText, workoutTimeText;
+    private TextView workoutDistanceText, workoutTimeText, workoutCaltext;
     private Button backToMainButton;
 
     @Override
@@ -21,20 +22,22 @@ public class WorkoutResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.cookandroid.aerobicapplication.R.layout.activity_workout_result);
 
-        resultText = findViewById(R.id.result_text);
+        workoutDistanceText = findViewById(R.id.workout_distance_text);
         workoutTimeText = findViewById(R.id.workout_time_text);
+        workoutCaltext = findViewById(R.id.workout_kcal_text);
         backToMainButton = findViewById(R.id.back_to_main_button);
 
-        // Intent로부터 운동 시간 데이터를 받음
-        Intent intent = getIntent();
-        int mins = intent.getIntExtra("mins", 0);
-        int secs = intent.getIntExtra("secs", 0);
-        int milliseconds = intent.getIntExtra("milliseconds", 0);
+        // 운동 결과 표시
+        double distance = ExercisedataManager.getInstance().getCurrentDistance();
+        workoutDistanceText.setText(String.format("운동 거리 : " + distance + "km"));
 
-        // 운동 시간을 표시할 텍스트뷰에 설정
-        workoutTimeText.setText(String.format("운동 시간: %02d:%02d:%02d", mins, secs, milliseconds / 10));
+        long MinTime = ExercisedataManager.getInstance().getCurrentMinTime();
+        workoutTimeText.setText(String.format("소요 시간 : " + MinTime + "분"));
 
-        // "처음으로" 버튼 클릭 시 MainActivity로 돌아가기
+        double cal = ExercisedataManager.getInstance().getCurrentKcal();
+        workoutCaltext.setText(String.format("소모 칼로리 : " + cal + "kcal"));
+
+        // "메인화면으로" 버튼 클릭 시 MainActivity로 돌아가기
         backToMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

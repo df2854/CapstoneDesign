@@ -19,11 +19,11 @@
             android:text="운동 시작" />
 
         <Button
-            android:id="@+id/createStart"
+            android:id="@+id/workoutLog"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="경로 생성 후 시작" />
+            android:text="운동 기록" />
     </LinearLayout>
 
     <LinearLayout

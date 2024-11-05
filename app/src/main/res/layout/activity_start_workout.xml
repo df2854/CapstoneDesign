@@ -50,6 +50,11 @@
             android:scaleType="centerCrop"
             android:contentDescription="현재 위치 버튼" />
 
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/btnWorkEnd"
+            android:text="종료"/>
     </LinearLayout>
 
     <!-- 정보 레이아웃 추가 -->

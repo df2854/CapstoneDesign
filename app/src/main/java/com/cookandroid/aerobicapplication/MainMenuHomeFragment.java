@@ -41,11 +41,11 @@ public class MainMenuHomeFragment extends Fragment {
             }
         });
 
-        Button createStartButton = view.findViewById(R.id.createStart);
+        Button createStartButton = view.findViewById(R.id.workoutLog);
         createStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CreatePathActivity.class);
+                Intent intent = new Intent(getActivity(), WorkoutLogActivity.class);
                 startActivity(intent);
             }
         });
