@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/fragment_home"
-        android:title="홈"
-        android:icon="@drawable/ic_home"/>
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="홈" />
+
     <item
-        android:id="@+id/fragment_account"
-        android:title="프로필"
-        android:icon="@drawable/ic_account"/>
+        android:id="@+id/nav_records"
+        android:icon="@drawable/ic_record"
+        android:title="기록" />
+
     <item
-        android:id="@+id/fragment_settings"
-        android:title="설정"
-        android:icon="@drawable/ic_setting"/>
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="마이페이지" />
+
+    <item
+        android:id="@+id/nav_challenge"
+        android:icon="@drawable/ic_challenge"
+        android:title="챌린지" />
 </menu>

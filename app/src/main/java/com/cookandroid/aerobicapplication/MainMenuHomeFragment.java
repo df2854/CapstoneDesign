@@ -25,30 +25,9 @@ public class MainMenuHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_menu_home, container, false);
 
-        recommendText = view.findViewById(R.id.recommendText);
+        recommendText = view.findViewById(R.id.tv_recommendation);
         userScore = UserdataManager.getInstance().getUserScore();
         setRecommendText();
-        Log.d("TAGGGG",String.valueOf(userScore));
-
-        // '운동 시작' 버튼 클릭 시 StartWorkoutActivity로 이동
-        Button startButton = view.findViewById(R.id.start);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RouteMain.class);
-                intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
-                startActivity(intent);
-            }
-        });
-
-        Button createStartButton = view.findViewById(R.id.workoutLog);
-        createStartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WorkoutLogActivity.class);
-                startActivity(intent);
-            }
-        });
 
         return view;
     }
