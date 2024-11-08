@@ -1,4 +1,5 @@
 package com.cookandroid.aerobicapplication.route;
+import com.cookandroid.aerobicapplication.Manager.ExercisedataManager;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
-import com.cookandroid.aerobicapplication.Manager.ExercisedataManager;
 import com.cookandroid.aerobicapplication.R;
 import com.cookandroid.aerobicapplication.SignupActivity;
 import com.skt.Tmap.TMapData;
@@ -261,54 +261,54 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
     // 클릭한 위치에 마커를 추가하는 메서드
     private void addMarker(TMapPoint point) {
-       if(isMarkerAddEnabled) { // 기존 마커 삭제
-           if (isStartPointSet == false) {
-               removeCurrentMarker();
-           }
+        if(isMarkerAddEnabled) { // 기존 마커 삭제
+            if (isStartPointSet == false) {
+                removeCurrentMarker();
+            }
 
-           TMapMarkerItem markerItem = new TMapMarkerItem();
+            TMapMarkerItem markerItem = new TMapMarkerItem();
 
-           // 마커의 위치 설정
-           markerItem.setTMapPoint(point);
-           markerItem.setName("클릭한 위치");
+            // 마커의 위치 설정
+            markerItem.setTMapPoint(point);
+            markerItem.setName("클릭한 위치");
 
-           // 마커의 핀 설정 (중앙에 위치하도록)
-           markerItem.setPosition(0.5f, 1.0f);
+            // 마커의 핀 설정 (중앙에 위치하도록)
+            markerItem.setPosition(0.5f, 1.0f);
 
-           updateMarkerIcon(markerItem, currentImage);
-           // 마커 ID 설정
-           String markerId = "marker_" + point.toString();
-           markerItem.setID(markerId);
+            updateMarkerIcon(markerItem, currentImage);
+            // 마커 ID 설정
+            String markerId = "marker_" + point.toString();
+            markerItem.setID(markerId);
 
-           // 새로운 마커를 currentMarker로 설정
-           if (isStartPointSet == false) {
-               currentMarker = markerItem;
-           }
+            // 새로운 마커를 currentMarker로 설정
+            if (isStartPointSet == false) {
+                currentMarker = markerItem;
+            }
 
 
-           // 기존 마커와의 거리 계산
-           for (TMapPoint existingPoint : markerPoints) {
-               if (calculateDistance(point, existingPoint) < 30 && isStartPointSet == true) { // 30m 이하인 경우
-                   highlightMarker(existingPoint); // 기존 마커 강조
-                   markerPoints.add(point);
-                   return; // 추가할 수 없음
-               }
-           }
+            // 기존 마커와의 거리 계산
+            for (TMapPoint existingPoint : markerPoints) {
+                if (calculateDistance(point, existingPoint) < 30 && isStartPointSet == true) { // 30m 이하인 경우
+                    highlightMarker(existingPoint); // 기존 마커 강조
+                    markerPoints.add(point);
+                    return; // 추가할 수 없음
+                }
+            }
 
-           // 지도에 마커 추가
-           tMapView.addMarkerItem(markerId, markerItem);
-           makerList.add(markerItem); // 모든 마커를 리스트에 추가
+            // 지도에 마커 추가
+            tMapView.addMarkerItem(markerId, markerItem);
+            makerList.add(markerItem); // 모든 마커를 리스트에 추가
 
-           // 마커 추가 메시지 표시
+            // 마커 추가 메시지 표시
 //        Toast.makeText(this, "마커가 추가되었습니다!", Toast.LENGTH_SHORT).show();
-           // 마커의 위치를 리스트에 저장
-           markerPoints.add(point);
-           // 출발지가 설정된 경우에만 경로 계산
-           if (isStartPointSet && markerPoints.size() >= 2) {
-               TMapPoint lastPoint = markerPoints.get(markerPoints.size() - 2); // 마지막에서 두 번째 마커
-               calculateRoute(lastPoint, point); // 마지막 두 점 간의 경로 계산
-           }
-       }
+            // 마커의 위치를 리스트에 저장
+            markerPoints.add(point);
+            // 출발지가 설정된 경우에만 경로 계산
+            if (isStartPointSet && markerPoints.size() >= 2) {
+                TMapPoint lastPoint = markerPoints.get(markerPoints.size() - 2); // 마지막에서 두 번째 마커
+                calculateRoute(lastPoint, point); // 마지막 두 점 간의 경로 계산
+            }
+        }
     }
 
     // 두 TMapPoint 간의 거리를 계산하는 메서드
@@ -384,7 +384,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
     }
 
-   ////////////////////////Gps///////////////////////////
+    ////////////////////////Gps///////////////////////////
 
     private void initializeGps() {
         tMapGpsManager = new TMapGpsManager(this);
