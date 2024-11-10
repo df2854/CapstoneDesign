@@ -37,6 +37,7 @@ import com.skt.Tmap.TMapView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
@@ -78,6 +79,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     private int currentCount = 0; // 갱신 횟수
     private static final double METER_TO_KM_CONVERSION = 0.001; // m를 km로 변환
     private long elapsedTime = 0; // 경과 시간
+    // 속도 기록
+    private List<Double> speedList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +211,49 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 isTracking = true;
                 currentCount = 0; // 측정 시작 시 초기화
                 startTime = System.currentTimeMillis(); // 경과 시간 시작
+            }
+        });
+
+        // Finish 버튼 클릭 리스너 (평균 속도 계산)
+        Button btnFinish = findViewById(R.id.btnFinish);
+        Button btnSumarryFinish = findViewById(R.id.btnSummaryFinish);
+        btnFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 평균 속도 계산
+                double averageSpeed = calculateAverageSpeed();
+
+                // 총 거리, 총 시간 계산
+                double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
+                long elapsedTimeInMillis = System.currentTimeMillis() - startTime; // 경과 시간 (ms)
+
+                // Intent 생성하여 데이터 전달
+                Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
+                intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
+                intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
+                intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
+
+                startActivity(intent); // 결과 화면으로 이동
+            }
+        });
+
+        btnSumarryFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 평균 속도 계산
+                double averageSpeed = calculateAverageSpeed();
+
+                // 총 거리, 총 시간 계산
+                double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
+                long elapsedTimeInMillis = System.currentTimeMillis() - startTime; // 경과 시간 (ms)
+
+                // Intent 생성하여 데이터 전달
+                Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
+                intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
+                intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
+                intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
+
+                startActivity(intent); // 결과 화면으로 이동
             }
         });
 
@@ -622,12 +668,29 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 speed = totalDistanceKm / elapsedTimeInSeconds * 3600; // 속도 (km/h)
             }
 
+            // 속도 기록 리스트에 추가
+            speedList.add(speed);
+
             // 속도 텍스트 업데이트
             TextView summaryPaceText = findViewById(R.id.summaryPaceText);
             TextView paceText = findViewById(R.id.paceText);
             summaryPaceText.setText(String.format(Locale.getDefault(), "%.1f km/h", speed)); // 소수점 1자리까지
             paceText.setText(String.format(Locale.getDefault(), "%.1f km/h", speed)); // 소수점 1자리까지
         }
+    }
+
+    // 평균 속도 계산 메서드
+    private double calculateAverageSpeed() {
+        if (speedList.size() == 0) {
+            return 0.0; // 리스트에 값이 없으면 평균 속도 0.0 반환
+        }
+
+        double sum = 0.0;
+        for (Double speed : speedList) {
+            sum += speed;
+        }
+
+        return sum / speedList.size(); // 평균 속도 계산
     }
 
 

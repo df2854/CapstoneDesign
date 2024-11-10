@@ -14,7 +14,7 @@ import com.cookandroid.aerobicapplication.R;
 
 public class WorkoutResultActivity extends AppCompatActivity {
 
-    private TextView workoutDistanceText, workoutTimeText, workoutCaltext;
+    private TextView workoutDistanceText, workoutTimeText, workoutPaceText, workoutCaltext;
     private Button backToMainButton;
 
     @Override
@@ -22,19 +22,28 @@ public class WorkoutResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_result);
 
-        workoutDistanceText = findViewById(R.id.workout_distance_text);
-        workoutTimeText = findViewById(R.id.workout_time_text);
-        workoutCaltext = findViewById(R.id.workout_kcal_text);
-        backToMainButton = findViewById(R.id.back_to_main_button);
+        workoutDistanceText = findViewById(R.id.distance);
+        workoutTimeText = findViewById(R.id.time);
+        workoutPaceText = findViewById(R.id.pace);
+        workoutCaltext = findViewById(R.id.calories);
+        backToMainButton = findViewById(R.id.main_menu_button);
 
-        // 운동 결과 표시
-        double distance = ExercisedataManager.getInstance().getCurrentDistance();
-        long minTime = ExercisedataManager.getInstance().getCurrentMinTime();
-        double cal = ExercisedataManager.getInstance().getCurrentKcal();
+        // Intent로 전달된 데이터 받기
+        Intent intent = getIntent();
+        double totalDistance = intent.getDoubleExtra("totalDistance", 0); // 총 거리
+        long elapsedTimeInMillis = intent.getLongExtra("elapsedTime", 0); // 총 시간
+        double averageSpeed = intent.getDoubleExtra("averageSpeed", 0); // 평균 속도
 
-        workoutDistanceText.setText(String.format("운동 거리 : %.2f km", distance));
-        workoutTimeText.setText(String.format("소요 시간 : %d 분", minTime));
-        workoutCaltext.setText(String.format("소모 칼로리 : %.2f kcal", cal));
+        // 시간 포맷팅 (경과 시간 -> 분 단위로 표시)
+        long minutes = elapsedTimeInMillis / 60000; // 밀리초 -> 분
+        long seconds = (elapsedTimeInMillis % 60000) / 1000; // 나머지 초
+
+
+        // 결과 화면에 데이터 표시
+        workoutDistanceText.setText(String.format("운동 거리 : %.2f km", totalDistance));
+        workoutTimeText.setText(String.format("소요 시간 : %02d:%02d", minutes, seconds));
+        workoutPaceText.setText(String.format("평균 속도 : %.2f km/h", averageSpeed));
+
 
         // 운동 기록 저장
         ExercisedataManager.getInstance().saveWorkoutData();
