@@ -15,11 +15,12 @@ import android.widget.TextView;
 import com.cookandroid.aerobicapplication.Manager.UserdataManager;
 import com.cookandroid.aerobicapplication.route.RouteMain;
 import com.cookandroid.aerobicapplication.userdata.CommentData;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainMenuHomeFragment extends Fragment {
     private TextView recommendText;
     private int userScore = 100;
-
+    private FloatingActionButton startButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,6 +29,16 @@ public class MainMenuHomeFragment extends Fragment {
         recommendText = view.findViewById(R.id.tv_recommendation);
         userScore = UserdataManager.getInstance().getUserScore();
         setRecommendText();
+
+        startButton = view.findViewById(R.id.btn_start);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RouteMain.class);
+                startActivity(intent);
+            }
+        });
+
 
         return view;
     }
