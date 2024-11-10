@@ -20,6 +20,7 @@ import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
             transaction.replace(R.id.menu_frame_layout, fragmentHome).commitAllowingStateLoss();
             toolbar.setTitle("홈");
         }
+
+        ImageButton btnSetting = findViewById(R.id.btn_settings);
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.menu_frame_layout, fragmentSetting).commitAllowingStateLoss();
+                toolbar.setTitle("설정");
+            }
+        });
 
         // 네비게이션 바 아이템 클릭 이벤트
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
