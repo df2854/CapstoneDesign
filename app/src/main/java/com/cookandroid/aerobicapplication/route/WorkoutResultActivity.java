@@ -33,6 +33,7 @@ public class WorkoutResultActivity extends AppCompatActivity {
         double totalDistance = intent.getDoubleExtra("totalDistance", 0); // 총 거리
         long elapsedTimeInMillis = intent.getLongExtra("elapsedTime", 0); // 총 시간
         double averageSpeed = intent.getDoubleExtra("averageSpeed", 0); // 평균 속도
+        double estimatedCalories = intent.getDoubleExtra("estimatedCalories", 0); // 예상 칼로리
 
         // 시간 포맷팅 (경과 시간 -> 분 단위로 표시)
         long minutes = elapsedTimeInMillis / 60000; // 밀리초 -> 분
@@ -40,10 +41,10 @@ public class WorkoutResultActivity extends AppCompatActivity {
 
 
         // 결과 화면에 데이터 표시
-        workoutDistanceText.setText(String.format("운동 거리 : %.2f km", totalDistance));
-        workoutTimeText.setText(String.format("소요 시간 : %02d:%02d", minutes, seconds));
-        workoutPaceText.setText(String.format("평균 속도 : %.2f km/h", averageSpeed));
-
+        workoutDistanceText.setText(String.format("%.3f", totalDistance));
+        workoutTimeText.setText(String.format("%02d:%02d", minutes, seconds));
+        workoutPaceText.setText(String.format("%.1f", averageSpeed));
+        workoutCaltext.setText(String.format("%.2f", estimatedCalories)); // 칼로리 표시
 
         // 운동 기록 저장
         ExercisedataManager.getInstance().saveWorkoutData();

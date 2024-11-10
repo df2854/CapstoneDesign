@@ -146,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#FF8000"
-            android:text="RESUME"
+            android:text="STOP RESUME"
             android:textColor="@android:color/white" />
 
         <!-- FINISH 버튼 -->

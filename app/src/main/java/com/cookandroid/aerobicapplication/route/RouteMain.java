@@ -103,6 +103,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             }
         }
 
+        // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
+        tMapView.setCompassMode(true);
+
         LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
         tMapView = new TMapView(this);
         tMapView.setSKTMapApiKey("iiXmtmSmi66hsWmupLjKUKVteYjWcvI1nrms8BZa");
@@ -117,9 +120,6 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         Button btnSetStartPoint = findViewById(R.id.btnSetStart); // 출발지 설정 버튼
         Button btnEndSet = findViewById(R.id.btnEndSet);
         Button btnReset = findViewById(R.id.btnReset);
-
-//        tMapView.setCompassMode(true);
-//        tMapView.setSightVisible(true);
 
         //임시 운동종료
         Button endTextView = findViewById(R.id.endButton);
@@ -163,7 +163,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 }
                 // 총 거리 초기화
                 totalDistance = 0;
-
+                isStartPointSet = false;  // 출발지 설정이 완료되었으므로 여러 개의 마커를 찍을 수 있도록 변경
+                isMarkerAddEnabled = false;
                 // 모든 마커 간의 거리 계산
                 for (int i = 0; i < markerPoints.size() - 1; i++) {
                     TMapPoint startPoint = markerPoints.get(i);
@@ -174,7 +175,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
                 // 총 거리 킬로미터로 변환 및 소수점 한 자리 수로 표현
                 totalDistanceInKm = totalDistance / 1000.0;
-                totalDistanceInKm = Math.round(totalDistanceInKm * 10) / 10.0;
+                totalDistanceInKm = Double.parseDouble(String.format("%.3f", totalDistanceInKm)); // 소수점 3자리로 포맷
                 ExercisedataManager.getInstance().setCurrentDistance(totalDistanceInKm);
 
                 // 예상 시간 계산
@@ -188,7 +189,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
                 // 결과 표시
                 runOnUiThread(() -> {
-                    estimatedDistanceTextView.setText(String.format("%.1fkm", totalDistanceInKm));
+                    estimatedDistanceTextView.setText(String.format("%.3fkm", totalDistanceInKm));
                     estimatedTimeTextView.setText(String.format("%d분", estimatedTimeInMinutes));
                     estimatedCalorieTextView.setText(String.format("%.2fkcal", estiimatedCalrorie));
                     infoLayout.setVisibility(View.VISIBLE);
@@ -207,55 +208,14 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 infoLayout.setVisibility(View.GONE);
                 runningContainerLayout.setVisibility(View.VISIBLE);
                 runningTextview.setVisibility(View.VISIBLE);
-                resumeTimer();
+                startTimer();
                 isTracking = true;
                 currentCount = 0; // 측정 시작 시 초기화
                 startTime = System.currentTimeMillis(); // 경과 시간 시작
             }
         });
 
-        // Finish 버튼 클릭 리스너 (평균 속도 계산)
-        Button btnFinish = findViewById(R.id.btnFinish);
-        Button btnSumarryFinish = findViewById(R.id.btnSummaryFinish);
-        btnFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 평균 속도 계산
-                double averageSpeed = calculateAverageSpeed();
 
-                // 총 거리, 총 시간 계산
-                double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
-                long elapsedTimeInMillis = System.currentTimeMillis() - startTime; // 경과 시간 (ms)
-
-                // Intent 생성하여 데이터 전달
-                Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
-                intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
-                intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
-                intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
-
-                startActivity(intent); // 결과 화면으로 이동
-            }
-        });
-
-        btnSumarryFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 평균 속도 계산
-                double averageSpeed = calculateAverageSpeed();
-
-                // 총 거리, 총 시간 계산
-                double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
-                long elapsedTimeInMillis = System.currentTimeMillis() - startTime; // 경과 시간 (ms)
-
-                // Intent 생성하여 데이터 전달
-                Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
-                intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
-                intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
-                intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
-
-                startActivity(intent); // 결과 화면으로 이동
-            }
-        });
 
 
         // 마커 추가 버튼 참조 및 클릭 리스너 설정
@@ -318,34 +278,69 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             }
         });
 
-        // 거리
-
-
-
-        // 평균속도
-
-
-
         //시간
         timeText = findViewById(R.id.timeText);
         summaryTimeText = findViewById(R.id.summaryTimeText);
         btnResume = findViewById(R.id.btnResume);
         btnSummaryResume = findViewById(R.id.btnSummaryResume);
 
-        // 타이머 업데이트 Runnable 설정
-        updateTimerRunnable = new Runnable() {
+        // Finish 버튼 클릭 리스너 (평균 속도 계산)
+        Button btnFinish = findViewById(R.id.btnFinish);
+        Button btnSumarryFinish = findViewById(R.id.btnSummaryFinish);
+        btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                if (isRunning) {
-                    long currentTime = System.currentTimeMillis();
-                    long elapsedTime = currentTime - startTime + pausedTime;
-                    updateTimeText(elapsedTime);
+            public void onClick(View v) {
+                // 타이머 멈추기
+                pauseTimer();
 
-                    // 1초마다 타이머 업데이트
-                    handler.postDelayed(this, 1000);
-                }
+                // 평균 속도 계산
+                double averageSpeed = calculateAverageSpeed();
+
+                // 총 거리, 총 시간 계산
+                double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
+                long elapsedTimeInMillis = System.currentTimeMillis() - startTime;
+
+                // 예상 칼로리 계산
+                double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
+                double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
+
+                // Intent 생성하여 데이터 전달
+                Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
+                intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
+                intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
+                intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
+                intent.putExtra("estimatedCalories", estimatedCalories); // 예상 칼로리
+
+                startActivity(intent); // 결과 화면으로 이동
             }
-        };
+        });
+
+        btnSumarryFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 타이머 멈추기
+                pauseTimer();
+                // 평균 속도 계산
+                double averageSpeed = calculateAverageSpeed();
+
+                // 총 거리, 총 시간 계산
+                double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
+                long elapsedTimeInMillis = System.currentTimeMillis() - startTime; // 멈춘 시간 제외한 경과 시간
+
+                // 예상 칼로리 계산
+                double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
+                double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
+
+                // Intent 생성하여 데이터 전달
+                Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
+                intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
+                intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
+                intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
+                intent.putExtra("estimatedCalories", estimatedCalories); // 예상 칼로리
+
+                startActivity(intent); // 결과 화면으로 이동
+            }
+        });
 
         // RESUME 버튼 클릭 리스너 설정
         btnResume.setOnClickListener(v -> {
@@ -356,38 +351,42 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 거리 및 속도 측정 멈춤
                 isTracking = false;
 
-                // 버튼 텍스트 변경
-                btnResume.setText("RESUME");
-
-                // 거리 및 속도 텍스트 리셋 (멈췄을 때)
-                TextView mapDistanceText = findViewById(R.id.mapdistanceText);
-                mapDistanceText.setText("0.000 km"); // 거리 리셋
-                TextView summaryPaceText = findViewById(R.id.summaryPaceText);
-                summaryPaceText.setText("0.0 km/h"); // 속도 리셋
+                // 거리 값은 유지됨
+                TextView paceText = findViewById(R.id.paceText);
+                paceText.setText("0.0"); // 속도 리셋
             } else {
                 // 타이머 다시 시작
-                resumeTimer();
+                startTimer();
 
                 // 거리 및 속도 측정 시작
                 isTracking = true;
 
-                // 버튼 텍스트 변경
-                btnResume.setText("STOP");
-
                 // 거리 및 속도 측정 초기화
-                currentCount = 0; // 거리 측정 시작
-                startTime = System.currentTimeMillis(); // 시간 재설정
+                startTime = System.currentTimeMillis() - pausedTime; // 시간 재설정, pausedTime을 고려하여 시
             }
         });
 
         // RESUME 버튼 클릭 리스너 설정
         btnSummaryResume.setOnClickListener(v -> {
             if (isRunning) {
-                // 시간이 실행 중이라면 멈추고
+                // 타이머 멈춤
                 pauseTimer();
+
+                // 거리 및 속도 측정 멈춤
+                isTracking = false;
+
+                // 거리 값은 유지됨
+                TextView paceText = findViewById(R.id.summaryPaceText);
+                paceText.setText("0.0"); // 속도 리셋
             } else {
-                // 시간이 멈춰 있다면 시작하고
-                resumeTimer();
+                // 타이머 다시 시작
+                startTimer();
+
+                // 거리 및 속도 측정 시작
+                isTracking = true;
+
+                // 거리 및 속도 측정 초기화
+                startTime = System.currentTimeMillis() - pausedTime; // 시간 재설정, pausedTime을 고려하여 시
             }
         });
 
@@ -556,7 +555,6 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
     private void initializeGps() {
         tMapGpsManager = new TMapGpsManager(this);
-        tMapGpsManager.setMinTime(1000);
         tMapGpsManager.setMinDistance(1);
         tMapGpsManager.setProvider(TMapGpsManager.NETWORK_PROVIDER);
         tMapGpsManager.setLocationCallback(); // 위치 변경 콜백 설정
@@ -577,8 +575,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // m를 km로 변환
             TextView mapDistanceText = findViewById(R.id.mapdistanceText);
             TextView summaryDistanceText = findViewById(R.id.summaryDistanceText);
-            mapDistanceText.setText(String.format(Locale.getDefault(), "%.3f km", totalDistanceKm)); // km로 변환하여 소수점 3자리까지 표시
-            summaryDistanceText.setText(String.format(Locale.getDefault(), "%.3f km", totalDistanceKm)); // km로 변환하여 소수점 3자리까지 표시
+            mapDistanceText.setText(String.format(Locale.getDefault(), "%.3f", totalDistanceKm)); // km로 변환하여 소수점 3자리까지 표시
+            summaryDistanceText.setText(String.format(Locale.getDefault(), "%.3f", totalDistanceKm)); // km로 변환하여 소수점 3자리까지 표시
 
         }
 
@@ -611,42 +609,50 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
     ////////////////////러닝/////////////////////
 
-    // 타이머 시작 (시간 흐름을 다시 시작)
-    private void resumeTimer() {
-        startTime = System.currentTimeMillis(); // 새로운 시작 시간 기록
-        isRunning = true;
-        handler.post(updateTimerRunnable); // 타이머 업데이트 시작
-    }
-
-    // 타이머 멈춤 (시간을 멈추고 현재까지의 시간을 기록)
-    private void pauseTimer() {
-        isRunning = false;
-        pausedTime += System.currentTimeMillis() - startTime; // 일시 정지된 시간을 누적
-    }
-
-    // 타이머 업데이트 (매초마다 호출)
+    // 타이머 업데이트 Runnable
     private Runnable updateTimerRunnable = new Runnable() {
         @Override
         public void run() {
             if (isRunning) {
-                elapsedTime = System.currentTimeMillis() - startTime + pausedTime; // 누적 시간 계산
-                updateTimeText(elapsedTime); // 타이머 텍스트 업데이트
+                long elapsedTime = System.currentTimeMillis() - startTime;  // 실제 경과 시간 계산
+                updateTimeText(elapsedTime);  // UI 업데이트 (시간 출력)
 
-                handler.postDelayed(this, 1000); // 1초마다 업데이트
+                // 1초마다 타이머 업데이트
+                handler.postDelayed(this, 1000);
             }
         }
     };
-
-    // 시간을 TextView에 업데이트
-    private void updateTimeText(long elapsedTime) {
-        int seconds = (int) (elapsedTime / 1000) % 60;
-        int minutes = (int) ((elapsedTime / (1000 * 60)) % 60);
-        int hours = (int) ((elapsedTime / (1000 * 60 * 60)) % 24);
-
-        String time = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        timeText.setText(time); // TimeTextView에 표시
-        summaryTimeText.setText(time); // TimeTextView에 표시
+    // 타이머 시작 함수
+    private void startTimer() {
+        startTime = System.currentTimeMillis() - pausedTime;  // 재시작할 때, pausedTime을 고려하여 시작
+        isRunning = true;  // 타이머 상태 변경
+        handler.post(updateTimerRunnable);  // 타이머 업데이트 시작
     }
+
+    // 타이머 멈추는 함수
+    private void pauseTimer() {
+        long currentTime = System.currentTimeMillis();
+        pausedTime += currentTime - startTime;  // 일시정지된 시간 저장
+        isRunning = false;  // 타이머 상태 변경
+        handler.removeCallbacks(updateTimerRunnable);  // 타이머 업데이트 중지
+    }
+
+    // 경과 시간을 화면에 출력하는 함수
+    private void updateTimeText(long elapsedTime) {
+        long elapsedSeconds = elapsedTime / 1000;  // 초 단위로 변환
+        long minutes = elapsedSeconds / 60;  // 분 단위
+        long seconds = elapsedSeconds % 60;  // 초 단위
+
+        // 텍스트뷰에 경과 시간 업데이트
+        TextView timeTextView = findViewById(R.id.timeText);
+        timeTextView.setText(String.format("%02d:%02d", minutes, seconds));  // MM:SS 형식으로 출력
+        // 텍스트뷰에 경과 시간 업데이트
+        TextView summaryTimeText = findViewById(R.id.summaryTimeText);
+        summaryTimeText.setText(String.format("%02d:%02d", minutes, seconds));  // MM:SS 형식으로 출력
+
+    }
+
+
 
     // 거리 및 속도 갱신
     private void updateDistanceAndSpeed() {
@@ -656,10 +662,10 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
             // 거리 텍스트 업데이트
             TextView mapDistanceText = findViewById(R.id.mapdistanceText);
-            mapDistanceText.setText(String.format(Locale.getDefault(), "%.3f km", totalDistanceKm)); // 소수점 3자리까지
+            mapDistanceText.setText(String.format(Locale.getDefault(), "%.3f", totalDistanceKm)); // 소수점 3자리까지
 
             // 경과 시간 계산
-            elapsedTime = System.currentTimeMillis() - startTime; // 시간 계산
+            elapsedTime = System.currentTimeMillis() - pausedTime; // 시간 계산
             double elapsedTimeInSeconds = elapsedTime / 1000.0; // 초 단위로 변환
 
             // 속도 계산 (km/h)
@@ -674,8 +680,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             // 속도 텍스트 업데이트
             TextView summaryPaceText = findViewById(R.id.summaryPaceText);
             TextView paceText = findViewById(R.id.paceText);
-            summaryPaceText.setText(String.format(Locale.getDefault(), "%.1f km/h", speed)); // 소수점 1자리까지
-            paceText.setText(String.format(Locale.getDefault(), "%.1f km/h", speed)); // 소수점 1자리까지
+            summaryPaceText.setText(String.format(Locale.getDefault(), "%.2f", speed)); // 소수점 1자리까지
+            paceText.setText(String.format(Locale.getDefault(), "%.2f", speed)); // 소수점 1자리까지
         }
     }
 

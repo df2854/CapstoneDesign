@@ -45,10 +45,20 @@ public class ExercisedataManager {
         currentMinTime = (endTime - startTime) / 1000 / 60;
     }
 
-    // 소모 칼로리 계산
-    private void calcKcal() {
-        int weight = Integer.parseInt(UserdataManager.getInstance().getUserWeight());
-        currentKcal = weight * (int)(currentDistance);
+    public void calcKcal() {
+        String userWeightString = UserdataManager.getInstance().getUserWeight();
+        int weight = 0;
+
+        if (userWeightString != null && !userWeightString.isEmpty()) {
+            try {
+                weight = Integer.parseInt(userWeightString);
+            } catch (NumberFormatException e) {
+                weight = 0;
+            }
+        }
+
+        // weight와 currentDistance 값을 사용하여 칼로리 계산
+        currentKcal = weight * currentDistance;
     }
 
     // 운동 데이터 저장 메서드
