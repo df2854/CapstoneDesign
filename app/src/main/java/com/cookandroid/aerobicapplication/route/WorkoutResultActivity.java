@@ -48,5 +48,8 @@ public class WorkoutResultActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+
     }
 }
