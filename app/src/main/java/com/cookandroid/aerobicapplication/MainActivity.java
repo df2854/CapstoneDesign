@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false); // 제목 제거
         }
 
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         if (savedInstanceState == null) {
