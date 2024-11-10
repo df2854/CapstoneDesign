@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 이름 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/userNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/showUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editUserName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="이름 입력"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 생년월일 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/userBirthdayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="생년월일:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/showUserBirthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editUserBirthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="생년월일 입력"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 키 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/userHeightLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="키:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/showUserHeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editUserHeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="키 입력"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 몸무게 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/userWeightLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="몸무게:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/showUserWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editUserWeight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="몸무게 입력"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 질병 유무 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/userDiseaseLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="질병 유무:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/showUserDisease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editUserDisease"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="질병 유무 입력"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 운동 경험 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/userExperienceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="운동 경험:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/showUserExperience"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editUserExperience"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="운동 경험 입력"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- BMI, 나이, 종합 점수 (수정 불가) -->
+    <TextView
+        android:id="@+id/showUserBmi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BMI: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/showUserAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나이: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/showUserScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="종합 점수: "
+        android:textSize="16sp" />
+
+    <!-- 수정 및 저장 버튼 -->
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정보 수정" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        android:visibility="gone" />
+</LinearLayout>

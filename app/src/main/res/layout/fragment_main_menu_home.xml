@@ -4,51 +4,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainMenuHomeFragment">
 
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/tv_recommendation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/white"
+        android:text="[앱에서 추천하는 활동]\n주 3회 50분 혹은\n주 5회 30분 빠르게 걷기"
+        android:textSize="18sp"
+        android:textColor="#000"/>
+
     <LinearLayout
+        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/start"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="운동 시작" />
-
-        <Button
-            android:id="@+id/workoutLog"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="운동 기록" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        <!-- 날씨 정보 -->
         <TextView
-            android:id="@+id/recommendText"
+            android:id="@+id/tv_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center"
-            android:text="주 3회 50분 혹은\n주 5회 30분\n빠르게 걷기를 추천합니다"
-            android:textSize="35dp" />
+            android:padding="16dp"
+            android:background="@color/white"
+            android:text="[날씨]"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginRight="15dp"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/tipText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_margin="50dp"-->
-<!--            android:text="Tip 멘트 / 운동 기록 / 날씨 등"-->
-<!--            android:textSize="35dp" />-->
+        <!-- TIP 영역 -->
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/white"
+            android:text="[TIP]\n달리기 운동은 보통 빠르게 걷기의 2배 정도의 효과를 냅니다."
+            android:textSize="18sp"
+            android:textColor="#000"/>
     </LinearLayout>
+
+
+    <!-- 주간 기록 영역 -->
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/tv_weekly_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@color/white"
+        android:text="[이번 주 앱과 함께 달린 기록]\n57.35km / 8시간 4분 20초 / 3800kcal"
+        android:textColor="#000"
+        android:textSize="18sp" />
 
 
 </LinearLayout>
