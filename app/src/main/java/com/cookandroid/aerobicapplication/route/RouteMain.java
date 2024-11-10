@@ -104,7 +104,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         }
 
         // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
-        tMapView.setCompassMode(true);
+        // 에뮬 오류나서 잠깐 비활해뒀어요 - 김지헌
+        //tMapView.setCompassMode(true);
 
         LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
         tMapView = new TMapView(this);

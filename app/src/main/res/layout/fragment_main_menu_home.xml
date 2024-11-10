@@ -130,20 +130,4 @@
             android:textColor="#000"/>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_start"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="160dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_shoe"
-        android:tint="#000"
-        app:backgroundTint="#B3E5FC"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:maxImageSize="75dp"
-        android:scaleType="centerInside"/>
-
 </LinearLayout>

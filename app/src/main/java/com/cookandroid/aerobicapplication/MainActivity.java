@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false); // 제목 제거
         }
 
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         if (savedInstanceState == null) {
@@ -65,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 } else if (menuItem.getItemId() == R.id.nav_profile) {
                     transaction.replace(R.id.menu_frame_layout, fragmentAccount).commitAllowingStateLoss();
                     toolbar.setTitle("마이페이지");
+                    return true;
+                } else if (menuItem.getItemId() == R.id.nav_start) {
+                    Intent intent = new Intent(getApplicationContext(), RouteMain.class);
+                    intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
+                    startActivity(intent);
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_challenge) {
                     transaction.replace(R.id.menu_frame_layout, fragmentChallenge).commitAllowingStateLoss();
