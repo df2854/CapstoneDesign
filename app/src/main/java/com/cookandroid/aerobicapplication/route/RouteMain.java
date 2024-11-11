@@ -103,7 +103,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             }
         }
 
-        // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
+        // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전) 이거자꾸 null오류떠서 주석처리함
         //tMapView.setCompassMode(true);
 
         LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
