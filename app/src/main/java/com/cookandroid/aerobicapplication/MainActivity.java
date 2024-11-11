@@ -19,7 +19,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,17 +45,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false); // 제목 제거
         }
 
-
-        FloatingActionButton startButton = (FloatingActionButton) findViewById(R.id.);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RouteMain.class);
-//                intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
-                startActivity(intent);
-            }
-        });
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         if (savedInstanceState == null) {
@@ -72,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.setTitle("설정");
             }
         });
+
         // 네비게이션 바 아이템 클릭 이벤트
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
