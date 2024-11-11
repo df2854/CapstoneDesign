@@ -45,6 +45,17 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false); // 제목 제거
         }
 
+
+        FloatingActionButton startButton = (FloatingActionButton) findViewById(R.id.btn_start);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RouteMain.class);
+//                intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
+                startActivity(intent);
+            }
+        });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         if (savedInstanceState == null) {
