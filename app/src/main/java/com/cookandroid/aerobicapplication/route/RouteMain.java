@@ -103,8 +103,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             }
         }
 
-        // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
-        tMapView.setCompassMode(true);
+
 
         LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
         tMapView = new TMapView(this);
@@ -120,7 +119,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         Button btnSetStartPoint = findViewById(R.id.btnSetStart); // 출발지 설정 버튼
         Button btnEndSet = findViewById(R.id.btnEndSet);
         Button btnReset = findViewById(R.id.btnReset);
-
+        // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
+        tMapView.setCompassMode(true);
         //임시 운동종료
         Button endTextView = findViewById(R.id.endButton);
         endTextView.setOnClickListener(v -> {

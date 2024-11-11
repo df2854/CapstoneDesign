@@ -19,8 +19,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.Button;import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        FloatingActionButton startButton = (FloatingActionButton) findViewById(R.id.btn_start);
+        FloatingActionButton startButton = (FloatingActionButton) findViewById(R.id.);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.setTitle("설정");
             }
         });
-
         // 네비게이션 바 아이템 클릭 이벤트
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
