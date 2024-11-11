@@ -20,6 +20,7 @@ import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
             toolbar.setTitle("홈");
         }
 
+        ImageButton btnSetting = findViewById(R.id.btn_settings);
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.menu_frame_layout, fragmentSetting).commitAllowingStateLoss();
+                toolbar.setTitle("설정");
+            }
+        });
+
         // 네비게이션 바 아이템 클릭 이벤트
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -75,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
                 } else if (menuItem.getItemId() == R.id.nav_profile) {
                     transaction.replace(R.id.menu_frame_layout, fragmentAccount).commitAllowingStateLoss();
                     toolbar.setTitle("마이페이지");
+                    return true;
+                } else if (menuItem.getItemId() == R.id.nav_start) {
+                    Intent intent = new Intent(getApplicationContext(), RouteMain.class);
+                    intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
+                    startActivity(intent);
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_challenge) {
                     transaction.replace(R.id.menu_frame_layout, fragmentChallenge).commitAllowingStateLoss();

@@ -7,58 +7,165 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainMenuHomeFragment">
 
-    <TextView
-        android:layout_margin="15dp"
-        android:id="@+id/tv_recommendation"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="@color/white"
-        android:text="[앱에서 추천하는 활동]\n주 3회 50분 혹은\n주 5회 30분 빠르게 걷기"
-        android:textSize="18sp"
-        android:textColor="#000"/>
+        android:layout_margin="15dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/txt_rec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text=" [ 추천 활동 ]"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/tv_recommendation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="주 3회 50분 혹은\n주 5회 30분 빠르게 걷기"
+                android:textSize="24dp"
+                android:textColor="#000"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_margin="15dp"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <!-- 날씨 정보 -->
-        <TextView
-            android:id="@+id/tv_weather"
+
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:background="@color/white"
-            android:text="[날씨]"
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:layout_marginRight="15dp"/>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#FFFFFF">
+            <LinearLayout
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <!-- 날씨 정보 -->
+                <TextView
+                    android:id="@+id/txt_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text=" [ 날씨 ]"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/tv_weather"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="예시"
+                    android:textColor="#000"
+                    android:textSize="24dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- TIP 영역 -->
-        <TextView
-            android:id="@+id/tv_tip"
+        <androidx.cardview.widget.CardView
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:background="@color/white"
-            android:text="[TIP]\n달리기 운동은 보통 빠르게 걷기의 2배 정도의 효과를 냅니다."
-            android:textSize="18sp"
-            android:textColor="#000"/>
+            android:layout_height="match_parent"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="#FFFFFF">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+                <TextView
+                    android:id="@+id/txt_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text=" [ Tip ]"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"/>
+
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/tv_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="달리기는 보통 빠르게 걷기의 2배 정도의 효과를 냅니다."
+                    android:textSize="20dp"
+                    android:textColor="#000"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-
     <!-- 주간 기록 영역 -->
-    <TextView
-        android:layout_margin="15dp"
-        android:id="@+id/tv_weekly_record"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="@color/white"
-        android:text="[이번 주 앱과 함께 달린 기록]\n57.35km / 8시간 4분 20초 / 3800kcal"
-        android:textColor="#000"
-        android:textSize="18sp" />
+        android:layout_margin="15dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/txt_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text=" [ 이번주 앱과 함께한 기록 ]"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/tv_weekly_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="57.35km / 8시간 4분 20초"
+                android:textSize="25dp"
+                android:textColor="#000"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

@@ -3,6 +3,7 @@
     <style name="Base.Theme.AerobicApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#5A78FF</item>
     </style>
 
     <style name="Theme.AerobicApplication" parent="Base.Theme.AerobicApplication" />
