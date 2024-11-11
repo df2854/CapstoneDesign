@@ -32,14 +32,15 @@
                 android:textColor="#000"/>
 
             <TextView
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="30dp"
                 android:id="@+id/tv_recommendation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="주 3회 50분 혹은\n주 5회 30분 빠르게 걷기"
-                android:textSize="24dp"
+                android:textSize="28dp"
                 android:textColor="#000"/>
         </LinearLayout>
 
@@ -79,13 +80,23 @@
                 <TextView
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:id="@+id/tv_weather1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="기온"
+                    android:textColor="#000"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_marginBottom="15dp"
-                    android:id="@+id/tv_weather"
+                    android:id="@+id/tv_weather2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="예시"
+                    android:text="습도, 강수확률"
                     android:textColor="#000"
-                    android:textSize="24dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -154,9 +165,10 @@
                 android:textColor="#000"/>
 
             <TextView
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="30dp"
                 android:id="@+id/tv_weekly_record"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

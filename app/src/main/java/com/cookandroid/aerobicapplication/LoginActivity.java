@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
+        MainMenuChallengeFragment.loginSuccess = true;
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish(); // 로그인 액티비티 종료
