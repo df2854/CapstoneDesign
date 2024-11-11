@@ -71,6 +71,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     private Button btnStartRoute,btnSummaryResume, btnResume;
     private long startTime; // 타이머 시작 시간
     private long pausedTime; // 일시 정지된 시간
+    private long allPausedTime; // 총 정지된 시간
     private Handler handler = new Handler(); // 타이머를 업데이트하는 핸들러
     private boolean isRunning = false;
 
@@ -103,8 +104,6 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             }
         }
 
-        // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
-        tMapView.setCompassMode(true);
 
         LinearLayout linearLayoutTmap = findViewById(R.id.linearLayoutTmap);
         tMapView = new TMapView(this);
@@ -121,6 +120,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         Button btnEndSet = findViewById(R.id.btnEndSet);
         Button btnReset = findViewById(R.id.btnReset);
 
+        // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
+        tMapView.setCompassMode(true);
+
         //임시 운동종료
         Button endTextView = findViewById(R.id.endButton);
         endTextView.setOnClickListener(v -> {
@@ -136,6 +138,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 tMapGpsManager.setProvider(TMapGpsManager.NETWORK_PROVIDER);
                 tMapGpsManager.OpenGps();
                 Toast.makeText(this, "현재 위치를 가져옵니다.", Toast.LENGTH_SHORT).show();
+                tMapView.setSightVisible(true);
             }
         });
 
@@ -354,16 +357,15 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 거리 값은 유지됨
                 TextView paceText = findViewById(R.id.paceText);
                 paceText.setText("0.0"); // 속도 리셋
+
+
             } else {
                 // 타이머 다시 시작
                 startTimer();
 
                 // 거리 및 속도 측정 시작
                 isTracking = true;
-
-                // 거리 및 속도 측정 초기화
-                startTime = System.currentTimeMillis() - pausedTime; // 시간 재설정, pausedTime을 고려하여 시
-            }
+             }
         });
 
         // RESUME 버튼 클릭 리스너 설정
@@ -384,9 +386,6 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
                 // 거리 및 속도 측정 시작
                 isTracking = true;
-
-                // 거리 및 속도 측정 초기화
-                startTime = System.currentTimeMillis() - pausedTime; // 시간 재설정, pausedTime을 고려하여 시
             }
         });
 
@@ -587,7 +586,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         // drawable에서 아이콘 설정
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gpscircle);
         // 비트맵 크기 조정
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 70, 70, false);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 60, 60, false);
         markerItem.setIcon(resizedBitmap); // 조정된 크기의 비트맵 설정
 
         // 마커 추가
@@ -614,8 +613,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         @Override
         public void run() {
             if (isRunning) {
-                long elapsedTime = System.currentTimeMillis() - startTime;  // 실제 경과 시간 계산
-                updateTimeText(elapsedTime);  // UI 업데이트 (시간 출력)
+                long elapsedTime = System.currentTimeMillis()-startTime;  // 실제 경과 시간 계산
+                updateTimeText(elapsedTime);
 
                 // 1초마다 타이머 업데이트
                 handler.postDelayed(this, 1000);
@@ -633,6 +632,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     private void pauseTimer() {
         long currentTime = System.currentTimeMillis();
         pausedTime += currentTime - startTime;  // 일시정지된 시간 저장
+
         isRunning = false;  // 타이머 상태 변경
         handler.removeCallbacks(updateTimerRunnable);  // 타이머 업데이트 중지
     }
@@ -665,7 +665,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             mapDistanceText.setText(String.format(Locale.getDefault(), "%.3f", totalDistanceKm)); // 소수점 3자리까지
 
             // 경과 시간 계산
-            elapsedTime = System.currentTimeMillis() - pausedTime; // 시간 계산
+            elapsedTime = System.currentTimeMillis() - startTime; // 시간 계산
             double elapsedTimeInSeconds = elapsedTime / 1000.0; // 초 단위로 변환
 
             // 속도 계산 (km/h)
