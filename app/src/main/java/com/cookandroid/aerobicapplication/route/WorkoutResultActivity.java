@@ -63,6 +63,7 @@ public class WorkoutResultActivity extends AppCompatActivity {
 
         float totalDis = sharedPreferences.getFloat("total", 0);
         editor.putFloat("total", totalDis+(float)totalDistance);
+        editor.putBoolean("first",true);
 
         editor.apply();
 
