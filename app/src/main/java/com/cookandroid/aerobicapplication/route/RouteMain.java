@@ -53,6 +53,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     private Random random;
     private final int MIN_DELAY_MS = 30000; // 최소 30초     // 랜덤 시간 간격 설정 (예: 5초 ~ 15초 사이)
     private final int MAX_DELAY_MS = 60000; // 최대 60초
+
+    //Tmap
     private TMapView tMapView;
     private ArrayList<TMapPoint> markerPoints = new ArrayList<>();  // 마커 위치 저장
     private boolean isStartPointSet = false;  // 출발지 설정 여부
@@ -154,7 +156,6 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         //임시 운동종료
         Button endTextView = findViewById(R.id.endButton);
         endTextView.setOnClickListener(v -> {
-            ExercisedataManager.getInstance().setEndTime(SystemClock.elapsedRealtime());
             Intent intent = new Intent(getApplicationContext(), WorkoutResultActivity.class);
             startActivity(intent);
         });
@@ -207,13 +208,11 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 총 거리 킬로미터로 변환 및 소수점 한 자리 수로 표현
                 totalDistanceInKm = totalDistance / 1000.0;
                 totalDistanceInKm = Double.parseDouble(String.format("%.3f", totalDistanceInKm)); // 소수점 3자리로 포맷
-                ExercisedataManager.getInstance().setCurrentDistance(totalDistanceInKm);
 
                 // 예상 시간 계산
                 double speed = 4;
                 double estimatedTimeInHours = totalDistanceInKm / speed;
                 estimatedTimeInMinutes = (int) (estimatedTimeInHours * 60);
-                ExercisedataManager.getInstance().setStartTime(SystemClock.elapsedRealtime());
 
                 // 예상 칼로리 계산
                 estiimatedCalrorie = totalDistance * 0.04;
@@ -330,19 +329,23 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
                 long elapsedTimeInMillis = System.currentTimeMillis() - startTime;
 
-                // 예상 칼로리 계산
-                double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
-                double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
-
                 // TTS stop
                 ttsManager.shutdown();
+
+                // 데이터 저장
+                ExercisedataManager.getInstance().setCurrentMinTime(elapsedTimeInMillis/60000);
+                ExercisedataManager.getInstance().setCurrentSecTime((elapsedTimeInMillis % 60000) / 1000);
+                ExercisedataManager.getInstance().setCurrentDistance(totalDistanceKm);
+
+                // 칼로리 계산
+                double estimatedCalories = ExercisedataManager.getInstance().getCurrentKcal(); // 칼로리 계산
 
                 // Intent 생성하여 데이터 전달
                 Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
                 intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
                 intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
                 intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
-                intent.putExtra("estimatedCalories", estimatedCalories); // 예상 칼로리
+                intent.putExtra("estimatedCalories", estimatedCalories); // 칼로리
 
                 startActivity(intent); // 결과 화면으로 이동
             }

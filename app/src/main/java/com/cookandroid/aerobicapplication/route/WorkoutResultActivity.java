@@ -2,7 +2,9 @@
 package com.cookandroid.aerobicapplication.route;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cookandroid.aerobicapplication.MainActivity;
 import com.cookandroid.aerobicapplication.Manager.ExercisedataManager;
 import com.cookandroid.aerobicapplication.R;
+
+import java.util.Calendar;
 
 public class WorkoutResultActivity extends AppCompatActivity {
 
@@ -39,15 +43,30 @@ public class WorkoutResultActivity extends AppCompatActivity {
         long minutes = elapsedTimeInMillis / 60000; // 밀리초 -> 분
         long seconds = (elapsedTimeInMillis % 60000) / 1000; // 나머지 초
 
-
         // 결과 화면에 데이터 표시
         workoutDistanceText.setText(String.format("%.3f", totalDistance));
         workoutTimeText.setText(String.format("%02d:%02d", minutes, seconds));
         workoutPaceText.setText(String.format("%.1f", averageSpeed));
         workoutCaltext.setText(String.format("%.2f", estimatedCalories)); // 칼로리 표시
 
-        // 운동 기록 저장
-        ExercisedataManager.getInstance().saveWorkoutData();
+        // 운동 기록 저장 및 초기화
+        Calendar calendar = Calendar.getInstance(); // 현재 날짜와 시간 가져오기
+        int month = calendar.get(Calendar.MONTH) + 1; // 월 가져오기 (0부터 시작하므로 +1)
+        int day = calendar.get(Calendar.DAY_OF_MONTH); // 일 가져오기
+        String key = String.valueOf(month) + String.valueOf(day);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyApp", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key+"distance", Double.toString(totalDistance));
+        editor.putString(key+"min", Long.toString(minutes));
+        editor.putString(key+"kcal", Double.toString(estimatedCalories));
+
+        float totalDis = sharedPreferences.getFloat("total", 0);
+        editor.putFloat("total", totalDis+(float)totalDistance);
+
+        editor.apply();
+
+        ExercisedataManager.getInstance().clearData();
 
         // "메인화면으로" 버튼 클릭 시 MainActivity로 돌아가기
         backToMainButton.setOnClickListener(new View.OnClickListener() {

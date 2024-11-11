@@ -1,6 +1,9 @@
 // MainMenuRecordFragment.java
 package com.cookandroid.aerobicapplication;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +13,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.cookandroid.aerobicapplication.Manager.ExercisedataManager;
-import com.cookandroid.aerobicapplication.Manager.ExercisedataManager.WorkoutData;
-import java.util.List;
 
 public class MainMenuRecordFragment extends Fragment {
 
@@ -39,22 +39,28 @@ public class MainMenuRecordFragment extends Fragment {
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyApp", MODE_PRIVATE);
+
         // 날짜 선택 시 리스너 설정
         calendarView.setOnDateChangedListener((widget, date, selected) -> {
             // 운동 데이터 불러와서 Bottom Sheet에 표시
             TextView selectedDateText = view.findViewById(R.id.selected_date_text);
             selectedDateText.setText("선택한 날짜: " + date.getMonth() + "월 " + date.getDay() + "일");
+            String curKey = String.valueOf(date.getMonth()) + String.valueOf(date.getDay());
 
             TextView workoutHistoryText = view.findViewById(R.id.workout_history_text);
             StringBuilder historyBuilder = new StringBuilder();
 
-            List<WorkoutData> workoutHistory = ExercisedataManager.getInstance().getWorkoutHistory();
-            for (WorkoutData workout : workoutHistory) {
-                historyBuilder.append(String.format("거리: %.2f km, 시간: %d 분, 칼로리: %.2f kcal\n",
-                        workout.getDistance(), workout.getMinTime(), workout.getKcal()));
-            }
+            String dis = sharedPreferences.getString(curKey+"distance", "0");
+            String min = sharedPreferences.getString(curKey+"min","");
+            String kcal = sharedPreferences.getString(curKey+"kcal", "");
 
-            workoutHistoryText.setText(historyBuilder.toString());
+            if(dis.equals("0")){
+                workoutHistoryText.setText("운동 기록이 없습니다!");
+            }
+            else{
+                workoutHistoryText.setText(String.format("거리: %skm, 시간: %s분, 칼로리: %skcal\n", dis, min, kcal));
+            }
             bottomSheet.setVisibility(View.VISIBLE);
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
