@@ -27,6 +27,8 @@ import androidx.core.app.ActivityCompat;
 import com.cookandroid.aerobicapplication.Manager.ExercisedataManager;
 import com.cookandroid.aerobicapplication.R;
 import com.cookandroid.aerobicapplication.SignupActivity;
+import com.cookandroid.aerobicapplication.TTSManager;
+import com.cookandroid.aerobicapplication.userdata.CommentData;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapMarkerItem;
@@ -34,13 +36,23 @@ import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
 
+import org.checkerframework.checker.units.qual.C;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
+    //TTS 관련
+    private TTSManager ttsManager;
+    private CommentData commentData;
+    private Handler handlerTTS;
+    private Runnable ttsRunnable;
+    private Random random;
+    private final int MIN_DELAY_MS = 30000; // 최소 30초     // 랜덤 시간 간격 설정 (예: 5초 ~ 15초 사이)
+    private final int MAX_DELAY_MS = 60000; // 최대 60초
     private TMapView tMapView;
     private ArrayList<TMapPoint> markerPoints = new ArrayList<>();  // 마커 위치 저장
     private boolean isStartPointSet = false;  // 출발지 설정 여부
@@ -86,6 +98,24 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.cookandroid.aerobicapplication.R.layout.activity_start_workout);
+
+        //TTS
+        commentData = new CommentData();
+        ttsManager = new TTSManager(this, commentData);
+        handlerTTS = new Handler();
+        random = new Random();
+        // Runnable 설정
+        ttsRunnable = new Runnable() {
+            @Override
+            public void run() {
+                ttsManager.speakRandomTip(); // 팁을 랜덤으로 재생
+
+                // 다음 실행을 위해 랜덤 지연 시간 설정
+                int randomDelay = MIN_DELAY_MS + random.nextInt(MAX_DELAY_MS - MIN_DELAY_MS);
+                handler.postDelayed(ttsRunnable, randomDelay);
+            }
+        };
+
         // 위치 권한 요청
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -206,6 +236,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         btnStartRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                handlerTTS.post(ttsRunnable);                //TTS 첫실행
+
                 infoLayout.setVisibility(View.GONE);
                 runningContainerLayout.setVisibility(View.VISIBLE);
                 runningTextview.setVisibility(View.VISIBLE);
@@ -215,9 +247,6 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 startTime = System.currentTimeMillis(); // 경과 시간 시작
             }
         });
-
-
-
 
         // 마커 추가 버튼 참조 및 클릭 리스너 설정
         ImageButton toggleMarkerButton = findViewById(R.id.toggleMarkerButton);
@@ -304,6 +333,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 예상 칼로리 계산
                 double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
                 double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
+
+                // TTS stop
+                ttsManager.shutdown();
 
                 // Intent 생성하여 데이터 전달
                 Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
