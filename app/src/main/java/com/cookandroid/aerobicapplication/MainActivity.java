@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_start) {
                     Intent intent = new Intent(getApplicationContext(), RouteMain.class);
-                    intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
+//                    intent.putExtra("startGps", true); // 인텐트에 GPS 시작 플래그 추가
                     startActivity(intent);
                     return true;
                 } else if (menuItem.getItemId() == R.id.nav_challenge) {

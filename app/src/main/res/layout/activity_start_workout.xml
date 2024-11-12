@@ -319,9 +319,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray" />
-            <!-- 평균 페이스 -->
+            <!-- 소모중인 칼로리 -->
             <LinearLayout
-                android:id="@+id/paceContainer"
+                android:id="@+id/calContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -333,18 +333,18 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/paceLabel"
+                    android:id="@+id/calLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AVG PACE (km/h)"
+                    android:text="CALORIE(kcal)"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/paceText"
+                    android:id="@+id/calText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.0"
+                    android:text="0.00"
                     android:textColor="@android:color/black"
                     android:textSize="24sp"
                     android:layout_marginLeft="10dp"
@@ -455,16 +455,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AVERAGE PACE"
+                android:text="CALORIE"
                 android:textSize="16sp"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginBottom="8dp"/>
 
             <TextView
-                android:id="@+id/summaryPaceText"
+                android:id="@+id/summaryCalorieText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0.0"
+                android:text="0.00"
                 android:textSize="48sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>
@@ -472,7 +472,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="km/h"
+                android:text="kcal"
                 android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"/>
         </LinearLayout>
