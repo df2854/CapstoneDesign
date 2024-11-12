@@ -1,6 +1,9 @@
 package com.cookandroid.aerobicapplication;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +37,8 @@ public class MainMenuChallengeFragment extends Fragment {
 
         challenge2False = view.findViewById(R.id.challenge2False);
         challenge2True = view.findViewById(R.id.challenge2True);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyApp", MODE_PRIVATE);
+        firstExercise = sharedPreferences.getBoolean("first",false);
         if(firstExercise){
             challenge2True.setVisibility(view.VISIBLE);
             challenge2False.setVisibility(view.INVISIBLE);

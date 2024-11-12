@@ -53,6 +53,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
     private Random random;
     private final int MIN_DELAY_MS = 30000; // 최소 30초     // 랜덤 시간 간격 설정 (예: 5초 ~ 15초 사이)
     private final int MAX_DELAY_MS = 60000; // 최대 60초
+
+    //Tmap
     private TMapView tMapView;
     private ArrayList<TMapPoint> markerPoints = new ArrayList<>();  // 마커 위치 저장
     private boolean isStartPointSet = false;  // 출발지 설정 여부
@@ -236,8 +238,6 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         btnStartRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handlerTTS.post(ttsRunnable);                //TTS 첫실행
-
                 infoLayout.setVisibility(View.GONE);
                 runningContainerLayout.setVisibility(View.VISIBLE);
                 runningTextview.setVisibility(View.VISIBLE);
@@ -247,6 +247,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 startTime = System.currentTimeMillis(); // 경과 시간 시작
             }
         });
+
+
+
 
         // 마커 추가 버튼 참조 및 클릭 리스너 설정
         ImageButton toggleMarkerButton = findViewById(R.id.toggleMarkerButton);
@@ -323,6 +326,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 타이머 멈추기
                 pauseTimer();
 
+                // 평균 속도 계산
+                double averageSpeed = calculateAverageSpeed();
+
                 // 총 거리, 총 시간 계산
                 double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
                 long elapsedTimeInMillis = System.currentTimeMillis() - startTime;
@@ -334,13 +340,23 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
                 // TTS stop
                 ttsManager.shutdown();
+                // TTS stop
+                ttsManager.shutdown();
+
+                // 데이터 저장
+                ExercisedataManager.getInstance().setCurrentMinTime(elapsedTimeInMillis/60000);
+                ExercisedataManager.getInstance().setCurrentSecTime((elapsedTimeInMillis % 60000) / 1000);
+                ExercisedataManager.getInstance().setCurrentDistance(totalDistanceKm);
+
+                // 칼로리 계산
+                double estimatedCalories = ExercisedataManager.getInstance().getCurrentKcal(); // 칼로리 계산
 
                 // Intent 생성하여 데이터 전달
                 Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
                 intent.putExtra("totalDistance", totalDistanceKm); // 총 거리
                 intent.putExtra("elapsedTime", elapsedTimeInMillis); // 총 시간
                 intent.putExtra("averageSpeed", averageSpeed); // 평균 속도
-                intent.putExtra("estimatedCalories", estimatedCalories); // 예상 칼로리
+                intent.putExtra("estimatedCalories", estimatedCalories); // 칼로리
 
                 startActivity(intent); // 결과 화면으로 이동
             }
@@ -351,16 +367,16 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
             public void onClick(View v) {
                 // 타이머 멈추기
                 pauseTimer();
+                // 평균 속도 계산
+                double averageSpeed = calculateAverageSpeed();
+
                 // 총 거리, 총 시간 계산
                 double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
                 long elapsedTimeInMillis = System.currentTimeMillis() - startTime; // 멈춘 시간 제외한 경과 시간
-                double averageSpeed =  (totalDistanceKm / (elapsedTimeInMillis / 1000.0)) * 3600.0;
+
                 // 예상 칼로리 계산
                 double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
                 double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
-
-                // TTS stop
-                ttsManager.shutdown();
 
                 // Intent 생성하여 데이터 전달
                 Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
@@ -382,7 +398,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 거리 및 속도 측정 멈춤
                 isTracking = false;
 
-
+                // 거리 값은 유지됨
+                TextView paceText = findViewById(R.id.paceText);
+                paceText.setText("0.0"); // 속도 리셋
             } else {
                 // 타이머 다시 시작
                 startTimer();
@@ -404,6 +422,9 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 거리 및 속도 측정 멈춤
                 isTracking = false;
 
+                // 거리 값은 유지됨
+                TextView paceText = findViewById(R.id.summaryPaceText);
+                paceText.setText("0.0"); // 속도 리셋
             } else {
                 // 타이머 다시 시작
                 startTimer();
@@ -449,59 +470,59 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
     // 클릭한 위치에 마커를 추가하는 메서드
     private void addMarker(TMapPoint point) {
-        if(isMarkerAddEnabled) { // 기존 마커 삭제
-            if (isStartPointSet == false) {
-                removeCurrentMarker();
-            }
+       if(isMarkerAddEnabled) { // 기존 마커 삭제
+           if (isStartPointSet == false) {
+               removeCurrentMarker();
+           }
 
-            TMapMarkerItem markerItem = new TMapMarkerItem();
+           TMapMarkerItem markerItem = new TMapMarkerItem();
 
-            Bitmap icon = BitmapFactory.decodeResource(getResources(), marker);  // 강조된 마커 이미지 로드
-            Bitmap resizedIcon = Bitmap.createScaledBitmap(icon, 120, 140, false);  // 크기 조정 (예: 120x120)
+           Bitmap icon = BitmapFactory.decodeResource(getResources(), marker);  // 강조된 마커 이미지 로드
+           Bitmap resizedIcon = Bitmap.createScaledBitmap(icon, 120, 140, false);  // 크기 조정 (예: 120x120)
 
-            // 마커의 아이콘을 강조된 아이콘으로 설정
-            markerItem.setIcon(resizedIcon);
+           // 마커의 아이콘을 강조된 아이콘으로 설정
+           markerItem.setIcon(resizedIcon);
 
-            // 마커의 위치 설정
-            markerItem.setTMapPoint(point);
-            markerItem.setName("클릭한 위치");
+           // 마커의 위치 설정
+           markerItem.setTMapPoint(point);
+           markerItem.setName("클릭한 위치");
 
-            // 마커의 핀 설정 (중앙에 위치하도록)
-            markerItem.setPosition(0.5f, 1.0f);
+           // 마커의 핀 설정 (중앙에 위치하도록)
+           markerItem.setPosition(0.5f, 1.0f);
 
-            // 마커 ID 설정
-            String markerId = "marker_" + point.toString();
-            markerItem.setID(markerId);
+           // 마커 ID 설정
+           String markerId = "marker_" + point.toString();
+           markerItem.setID(markerId);
 
-            // 새로운 마커를 currentMarker로 설정
-            if (isStartPointSet == false) {
-                currentMarker = markerItem;
-            }
+           // 새로운 마커를 currentMarker로 설정
+           if (isStartPointSet == false) {
+               currentMarker = markerItem;
+           }
 
 
-            // 기존 마커와의 거리 계산
-            for (TMapPoint existingPoint : markerPoints) {
-                if (calculateDistance(point, existingPoint) < 30 && isStartPointSet == true) { // 30m 이하인 경우
-                    highlightMarker(existingPoint); // 기존 마커 강조
-                    markerPoints.add(point);
-                    return; // 추가할 수 없음
-                }
-            }
+           // 기존 마커와의 거리 계산
+           for (TMapPoint existingPoint : markerPoints) {
+               if (calculateDistance(point, existingPoint) < 30 && isStartPointSet == true) { // 30m 이하인 경우
+                   highlightMarker(existingPoint); // 기존 마커 강조
+                   markerPoints.add(point);
+                   return; // 추가할 수 없음
+               }
+           }
 
-            // 지도에 마커 추가
-            tMapView.addMarkerItem(markerId, markerItem);
-            makerList.add(markerItem); // 모든 마커를 리스트에 추가
+           // 지도에 마커 추가
+           tMapView.addMarkerItem(markerId, markerItem);
+           makerList.add(markerItem); // 모든 마커를 리스트에 추가
 
-            // 마커 추가 메시지 표시
+           // 마커 추가 메시지 표시
 //        Toast.makeText(this, "마커가 추가되었습니다!", Toast.LENGTH_SHORT).show();
-            // 마커의 위치를 리스트에 저장
-            markerPoints.add(point);
-            // 출발지가 설정된 경우에만 경로 계산
-            if (isStartPointSet && markerPoints.size() >= 2) {
-                TMapPoint lastPoint = markerPoints.get(markerPoints.size() - 2); // 마지막에서 두 번째 마커
-                calculateRoute(lastPoint, point); // 마지막 두 점 간의 경로 계산
-            }
-        }
+           // 마커의 위치를 리스트에 저장
+           markerPoints.add(point);
+           // 출발지가 설정된 경우에만 경로 계산
+           if (isStartPointSet && markerPoints.size() >= 2) {
+               TMapPoint lastPoint = markerPoints.get(markerPoints.size() - 2); // 마지막에서 두 번째 마커
+               calculateRoute(lastPoint, point); // 마지막 두 점 간의 경로 계산
+           }
+       }
     }
 
     // 두 TMapPoint 간의 거리를 계산하는 메서드
@@ -577,7 +598,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
     }
 
-    ////////////////////////Gps///////////////////////////
+   ////////////////////////Gps///////////////////////////
 
     private void initializeGps() {
         tMapGpsManager = new TMapGpsManager(this);
@@ -614,6 +635,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         // 마커 추가
         tMapView.addMarkerItem("currentLocationMarker", markerItem);
 
+        updateDistanceAndSpeed(); // 거리 및 속도 갱신
 
     }
 
@@ -672,15 +694,17 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
 
     }
 
-    // 거리 및 소모 칼로리 갱신
-    private void updateDistanceAndCalorie() {
-        double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
 
-        // 거리 텍스트 업데이트
-        TextView mapDistanceText = findViewById(R.id.mapdistanceText);
-        mapDistanceText.setText(String.format(Locale.getDefault(), "%.3f", totalDistanceKm)); // 소수점 3자리까지
-        TextView summaryDistanceText = findViewById(R.id.summaryDistanceText);
-        summaryDistanceText.setText(String.format(Locale.getDefault(), "%.3f", totalDistanceKm)); // 소수점 3자리까지
+
+    // 거리 및 속도 갱신
+    private void updateDistanceAndSpeed() {
+        if (isTracking) {
+            currentCount++; // 갱신 횟수 증가
+            double totalDistanceKm = currentCount * METER_TO_KM_CONVERSION; // 거리 계산 (km)
+
+            // 거리 텍스트 업데이트
+            TextView mapDistanceText = findViewById(R.id.mapdistanceText);
+            mapDistanceText.setText(String.format(Locale.getDefault(), "%.3f", totalDistanceKm)); // 소수점 3자리까지
 
         // 경과 시간 계산
         elapsedTime = System.currentTimeMillis() - pausedTime; // 시간 계산
@@ -688,11 +712,31 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
         double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
 
-        // 칼로리 텍스트 업데이트
-        TextView summaryCalorieText = findViewById(R.id.summaryCalorieText);
-        summaryCalorieText.setText(String.format(Locale.getDefault(), "%.2f kcal", estimatedCalories)); // 소수점 2자리까지 표시
-        TextView calText = findViewById(R.id.calText);
-        calText.setText(String.format(Locale.getDefault(), "%.2f kcal", estimatedCalories)); // 소수점 2자리까지 표시
+            // 속도 기록 리스트에 추가
+            speedList.add(speed);
 
+            // 속도 텍스트 업데이트
+            TextView summaryPaceText = findViewById(R.id.summaryPaceText);
+            TextView paceText = findViewById(R.id.paceText);
+            summaryPaceText.setText(String.format(Locale.getDefault(), "%.2f", speed)); // 소수점 1자리까지
+            paceText.setText(String.format(Locale.getDefault(), "%.2f", speed)); // 소수점 1자리까지
+        }
     }
+
+    // 평균 속도 계산 메서드
+    private double calculateAverageSpeed() {
+        if (speedList.size() == 0) {
+            return 0.0; // 리스트에 값이 없으면 평균 속도 0.0 반환
+        }
+
+        double sum = 0.0;
+        for (Double speed : speedList) {
+            sum += speed;
+        }
+
+        return sum / speedList.size(); // 평균 속도 계산
+    }
+
+
+
 }
