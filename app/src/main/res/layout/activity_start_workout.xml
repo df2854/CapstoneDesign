@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:text="Close"
             android:textSize="20sp"
-            android:textColor="#1883EF"
+            android:textColor="#5A78FF"
             android:textStyle="bold"
             android:backgroundTint="@color/white"
             android:layout_gravity="center"
@@ -52,7 +52,7 @@
             android:padding="2dp"
             android:text="Run"
             android:textAlignment="center"
-            android:textColor="#1883EF"
+            android:textColor="#5A78FF"
             android:textSize="25sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -139,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0 km"
-                    android:textColor="#1883EF"
+                    android:textColor="#5A78FF"
                     android:textSize="35sp"
                     android:textStyle="bold"
                     android:paddingRight="8dp" />
@@ -179,7 +179,7 @@
                     android:text="GO"
                     android:textSize="15dp"
                     android:textColor="#FFFFFF"
-                    android:backgroundTint="#1883EF"/>
+                    android:backgroundTint="#5A78FF"/>
             </LinearLayout>
     </LinearLayout>
 
@@ -203,7 +203,7 @@
             android:textSize="15dp"
             android:layout_marginBottom="18dp"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#1883EF"
+            android:backgroundTint="#5A78FF"
             android:layout_gravity="center"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -223,7 +223,7 @@
                 android:text="NEXT"
                 android:textSize="15dp"
                 android:textColor="#FFFFFF"
-                android:backgroundTint="#1883EF"/>
+                android:backgroundTint="#5A78FF"/>
 
             <!-- 다시 설정 버튼 추가 -->
             <Button
@@ -381,7 +381,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="#1883EF"
+                    android:backgroundTint="#5A78FF"
                     android:text="FINISH"
                     android:textColor="@android:color/white"
                     android:layout_marginStart="16dp" />
@@ -555,7 +555,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#1883EF"
+                android:backgroundTint="#5A78FF"
                 android:text="FINISH"
                 android:textColor="@android:color/white"
                 android:layout_marginStart="16dp" />
