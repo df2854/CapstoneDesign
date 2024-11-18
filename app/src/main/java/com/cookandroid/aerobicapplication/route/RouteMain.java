@@ -152,7 +152,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         Button btnEndSet = findViewById(R.id.btnEndSet);
         Button btnReset = findViewById(R.id.btnReset);
         // 컴파스 모드 활성화 (기기 방향에 따라 지도 회전)
-        tMapView.setCompassMode(true);
+        //tMapView.setCompassMode(true);
         //임시 운동종료
         Button endTextView = findViewById(R.id.endButton);
         endTextView.setOnClickListener(v -> {
@@ -343,7 +343,7 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 ExercisedataManager.getInstance().setCurrentDistance(totalDistanceKm);
 
                 // 칼로리 계산
-                estimatedCalories = ExercisedataManager.getInstance().getCurrentKcal(); // 칼로리 계산
+                //estimatedCalories = ExercisedataManager.getInstance().getCurrentKcal(); // 칼로리 계산
 
                 // Intent 생성하여 데이터 전달
                 Intent intent = new Intent(RouteMain.this, WorkoutResultActivity.class);
@@ -686,7 +686,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
         // 텍스트뷰에 경과 시간 업데이트
         TextView summaryTimeText = findViewById(R.id.summaryTimeText);
         summaryTimeText.setText(String.format("%02d:%02d", minutes, seconds));  // MM:SS 형식으로 출력
-
+        currentCount++;
+        updateDistanceAndCalorie();
     }
 
 
