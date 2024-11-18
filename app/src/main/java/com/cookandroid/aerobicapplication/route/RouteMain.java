@@ -332,6 +332,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 예상 칼로리 계산
                 double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
                 double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
+
+                // 평균 속도
                 double averageSpeed =  (totalDistanceKm / (elapsedTimeInMillis / 1000.0)) * 3600.0;
 
                 // TTS stop
@@ -369,6 +371,8 @@ public class RouteMain extends AppCompatActivity implements TMapGpsManager.onLoc
                 // 예상 칼로리 계산
                 double totalDistanceMeters = currentCount; // 총 거리 (미터 단위)
                 double estimatedCalories = totalDistanceMeters * 0.04; // 칼로리 계산
+
+                // 평균 속도
                 double averageSpeed =  (totalDistanceKm / (elapsedTimeInMillis / 1000.0)) * 3600.0;
 
                 // TTS stop
